@@ -1,3 +1,9 @@
+# API server of EIP1056
+
+This api server was created based on the [did-vc repository on GitHub](https://github.com/ka-sasaki-sti/did-vc). 
+
+----
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
