@@ -56,6 +56,9 @@ function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
 function DidBox() {
   const [currentDID, setCurrentDID] = useState<string>('Loading...');
   const [isLoading, setIsLoading] = useState(true);
+  const [isResolving, setIsResolving] = useState(false);
+  const [resolveStatus, setResolveStatus] = useState<string | null>(null);
+  const [isResolveError, setIsResolveError] = useState(false);
 
   useEffect(() => {
     const fetchDID = async () => {
@@ -74,6 +77,26 @@ function DidBox() {
     fetchDID();
   }, []);
 
+  const handleResolveDID = async () => {
+    setIsResolving(true);
+    setResolveStatus(null);
+    try {
+      const response = await fetch('http://localhost:3001/resolveDID');
+      if (response.ok) {
+        setResolveStatus('Resolve Success');
+        setIsResolveError(false);
+      } else {
+        throw new Error('Resolve failed');
+      }
+    } catch (error) {
+      console.error('Error resolving DID:', error);
+      setResolveStatus('Resolve Failed');
+      setIsResolveError(true);
+    } finally {
+      setIsResolving(false);
+    }
+  };
+
   return (
     <div className="relative size-full" data-name="DID Box" data-node-id="78:150">
       <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-center p-[10px] relative size-full">
@@ -89,17 +112,22 @@ function DidBox() {
               </div>
             </div>
           </div>
-          <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" data-node-id="6:204">
+          <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" data-node-id="6:204" onClick={handleResolveDID}>
             <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I6_204-53923_27817">
               <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I6_204-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[24px] whitespace-pre">Resolve</p>
+                <p className="leading-[24px] whitespace-pre">{isResolving ? 'Resolving...' : 'Resolve'}</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="h-[49px] overflow-clip relative shrink-0 w-full" data-name="Frame content" data-node-id="6:236">
-          <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-0 right-0 text-[14px] text-black text-center top-1/2 tracking-[0.1px] translate-y-[-50%] px-2 w-full" data-node-id="6:245" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="break-all w-full">{isLoading ? 'Loading...' : currentDID}</p>
+        <div className="flex-1 overflow-clip relative shrink-0 w-full" data-name="Frame content" data-node-id="6:236">
+          <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] text-[14px] text-black text-center tracking-[0.1px] px-2 w-full" data-node-id="6:245" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <p className="break-all w-full mb-1">{isLoading ? 'Loading...' : currentDID}</p>
+            {resolveStatus && (
+              <p className={`text-sm font-medium ${isResolveError ? 'text-red-600' : 'text-green-600'}`}>
+                {resolveStatus}
+              </p>
+            )}
           </div>
         </div>
       </div>

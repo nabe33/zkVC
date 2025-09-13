@@ -103,6 +103,9 @@ export default function VerifyVc1() {
   const [showMyPage, setShowMyPage] = useState(false);
   const [currentDID, setCurrentDID] = useState<string>('Loading...');
   const [isLoadingDID, setIsLoadingDID] = useState(true);
+  const [isResolving, setIsResolving] = useState(false);
+  const [resolveStatus, setResolveStatus] = useState<string | null>(null);
+  const [isResolveError, setIsResolveError] = useState(false);
 
   useEffect(() => {
     const fetchDID = async () => {
@@ -120,6 +123,26 @@ export default function VerifyVc1() {
 
     fetchDID();
   }, []);
+
+  const handleResolveDID = async () => {
+    setIsResolving(true);
+    setResolveStatus(null);
+    try {
+      const response = await fetch('http://localhost:3001/resolveDID');
+      if (response.ok) {
+        setResolveStatus('Resolve Success');
+        setIsResolveError(false);
+      } else {
+        throw new Error('Resolve failed');
+      }
+    } catch (error) {
+      console.error('Error resolving DID:', error);
+      setResolveStatus('Resolve Failed');
+      setIsResolveError(true);
+    } finally {
+      setIsResolving(false);
+    }
+  };
 
   if (showTopPage) {
     return <TopPage />;
@@ -152,13 +175,18 @@ export default function VerifyVc1() {
               <p className="leading-[36px] whitespace-pre">DID:</p>
             </div>
             <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" id="node-I78_175-6_235" />
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" id="node-I78_175-6_204">
-              <ButtonDark labelText="Resolve" style="Filled" state="enabled" showIcon="False" />
+            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" id="node-I78_175-6_204" onClick={handleResolveDID}>
+              <ButtonDark labelText={isResolving ? "Resolving..." : "Resolve"} style="Filled" state="enabled" showIcon="False" />
             </div>
           </div>
-          <div className="h-[49px] overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_175-6_236">
-            <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-0 right-0 text-[14px] text-black text-center top-1/2 tracking-[0.1px] translate-y-[-50%] px-2 w-full" id="node-I78_175-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="break-all w-full">{isLoadingDID ? 'Loading...' : currentDID}</p>
+          <div className="flex-1 overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_175-6_236">
+            <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] text-[14px] text-black text-center tracking-[0.1px] px-2 w-full" id="node-I78_175-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="break-all w-full mb-1">{isLoadingDID ? 'Loading...' : currentDID}</p>
+              {resolveStatus && (
+                <p className={`text-sm font-medium ${isResolveError ? 'text-red-600' : 'text-green-600'}`}>
+                  {resolveStatus}
+                </p>
+              )}
             </div>
           </div>
         </div>
