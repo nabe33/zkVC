@@ -1,0 +1,250 @@
+import { Injectable } from '@nestjs/common';
+import { Resolver } from 'did-resolver';
+import { getResolver } from 'ethr-did-resolver';
+import { verifyCredential } from 'did-jwt-vc';
+import { EthrDID, KeyPair } from 'ethr-did';
+import { ethers, Wallet } from 'ethers';
+@Injectable()
+export class AppService {
+  private ethrDidInstance: EthrDID | null = null; // EthrDIDインスタンスをキャッシュ
+
+  private getWalletInfo() {
+    const privateKey = process.env.PRIVATE_KEY!;
+    const wallet = new Wallet(privateKey);
+    return {
+      privateKey,
+      publicKey: wallet.signingKey.publicKey,
+      address: wallet.address, // アドレスはDIDの識別子として使用
+    };
+  }
+
+  // DIDの文字列を生成するヘルパー関数
+  private getDIDString(address: string) {
+    return `did:ethr:sepolia:${address}`;
+  }
+
+  // EthrDIDインスタンス（DIDドキュメント）を作成するヘルパー関数
+  private async getEthrDID(): Promise<EthrDID> {
+    // 既にインスタンスが存在する場合はそれを返す
+    if (this.ethrDidInstance) {
+      return this.ethrDidInstance;
+    }
+
+    const walletInfo = this.getWalletInfo();
+    const alchemyApiKey = process.env.ALCHEMY_API_KEY!;
+    const provider = new ethers.AlchemyProvider('sepolia', alchemyApiKey);
+    const txSigner = new Wallet(walletInfo.privateKey, provider);
+
+    const keypair: KeyPair = {
+      privateKey: walletInfo.privateKey,
+      publicKey: walletInfo.publicKey,
+      address: walletInfo.address,
+      identifier: walletInfo.address,
+    };
+
+    // EthrDIDインスタンス(DIDドキュメント)を作成
+    console.log('=== EthrDIDインスタンス作成開始 ===');
+    this.ethrDidInstance = new EthrDID({
+      ...keypair,
+      provider: provider,
+      txSigner: txSigner,
+      chainNameOrId: 'sepolia',
+      registry: '0x03d5003bf0e79C5F5223588F347ebA39AfbC3818',
+    });
+    console.log('=== EthrDIDインスタンス作成完了 ===');
+    console.log('DID:', this.getDIDString(walletInfo.address));
+
+    return this.ethrDidInstance;
+  }
+
+  // シンプルなヘルスチェック
+  getHello(): string {
+    return 'Hello World!';
+  }
+
+  // 現在のDID情報を取得
+  getCurrentDID(): any {
+    const walletInfo = this.getWalletInfo();
+    const currentDID = this.getDIDString(walletInfo.address);
+
+    return {
+      address: walletInfo.address,
+      did: currentDID,
+      publicKey: walletInfo.publicKey,
+    };
+  }
+
+  // DIDドキュメントをブロックチェーンから解決して取得
+  async resolveDID(): Promise<any> {
+    const walletInfo = this.getWalletInfo();
+    const currentDID = this.getDIDString(walletInfo.address);
+
+    const providerConfig = {
+      rpcUrl: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      registry: '0x03d5003bf0e79C5F5223588F347ebA39AfbC3818',
+      name: 'sepolia',
+    };
+
+    const ethrDidResolver = getResolver(providerConfig); // ERC1056のリゾルバー
+    const didResolver = new Resolver(ethrDidResolver);
+
+    console.log('=== DID解決処理開始 ===');
+    console.log('現在の秘密鍵から生成されるアドレス:', walletInfo.address);
+    console.log('解決対象DID:', currentDID);
+    console.log('Provider設定:', providerConfig);
+
+    try {
+      const result = await didResolver.resolve(currentDID);
+      console.log('=== DID解決成功 ===');
+      console.log('didResolver:');
+      console.dir(result, { depth: 3 });
+      return result;
+    } catch (error) {
+      console.log('=== DID解決エラー ===');
+      console.error('Error details:', error);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      throw error;
+    }
+  }
+
+  // DID登録処理
+  // ブロックチェーンにDIDドキュメントを登録
+  async registerDID(): Promise<void> {
+    const walletInfo = this.getWalletInfo();
+    const ethrDid = await this.getEthrDID();
+    // DID登録の開始ログ
+    console.log('=== DIDドキュメント登録開始 ===');
+    console.log('登録するアドレス:', walletInfo.address);
+    console.log('登録するDID:', this.getDIDString(walletInfo.address));
+
+    // DIDの属性を設定してブロックチェーンにDIDドキュメントを登録
+    // ・署名鍵の公開鍵を設定
+    // ・31104000は属性の有効期限（秒単位、ここでは1年）
+    // 詳細はhttps://github.com/uport-project/ethr-did/issues/81#issuecomment-1030181286
+    await ethrDid.setAttribute(
+      'did/pub/Secp256k1/sigAuth/hex', // DID公開鍵情報/暗号化アルゴリズム/署名認証/16進数
+      walletInfo.publicKey, // 公開鍵で署名を検証
+      31104000,
+    );
+
+    console.log('=== DIDドキュメント登録完了 ===');
+  }
+
+  // VC（Verifiable Credential）を発行
+  // issuerPrivateKey: 発行者（運転免許センター）の秘密鍵
+  // hodlerAddress: VCを受け取る人（運転者）のアドレス
+  async issueVc(
+    issuerPrivateKey: string,
+    hodlerAddress: string,
+    driverName: string,
+    birthDate: string,
+    licenseType: string,
+  ): Promise<string> {
+    try {
+      console.log('=== VC発行処理開始 ===');
+      console.log('受信したパラメータ:', {
+        issuerPrivateKey: issuerPrivateKey ? 'あり' : 'なし',
+        hodlerAddress,
+        driverName,
+        birthDate,
+        licenseType,
+      });
+
+      // 発行者の情報を秘密鍵から生成
+      const issuerWallet = new Wallet(issuerPrivateKey);
+      const issuerAddress = issuerWallet.address;
+      const issuerDID = this.getDIDString(issuerAddress);
+
+      console.log('発行者情報:', { issuerAddress, issuerDID });
+
+      const vcpayload = {
+        '@context': ['https://www.w3.org/2018/credentials/v1'],
+        type: ['VerifiableCredential', 'DriverLicenseCredential'],
+        issuer: issuerDID,
+        issuanceDate: new Date().toISOString(),
+        credentialSubject: {
+          id: `did:ethr:sepolia:${hodlerAddress}`,
+          driverLicense: {
+            driverName: driverName,
+            birthDate: birthDate,
+            licenseType: licenseType,
+          },
+        },
+        proof: {
+          type: 'EcdsaSecp256k1Signature2019',
+          created: new Date().toISOString(),
+          proofPurpose: 'assertionMethod',
+          verificationMethod: `${issuerDID}#delegate-1`,
+        },
+      };
+
+      console.log('=== VC発行開始 ===');
+      console.log('発行者DID:', issuerDID);
+      console.log('受信者アドレス:', hodlerAddress);
+      console.log('VCペイロード:', vcpayload);
+
+      // 発行者専用のEthrDIDインスタンスを作成
+      console.log('=== 発行者用EthrDIDインスタンス作成開始 ===');
+      const alchemyApiKey = process.env.ALCHEMY_API_KEY!;
+      const provider = new ethers.AlchemyProvider('sepolia', alchemyApiKey);
+      const txSigner = new Wallet(issuerPrivateKey, provider);
+
+      const keypair: KeyPair = {
+        privateKey: issuerPrivateKey,
+        publicKey: issuerWallet.signingKey.publicKey,
+        address: issuerAddress,
+        identifier: issuerAddress,
+      };
+
+      const ethrDid = new EthrDID({
+        ...keypair,
+        provider: provider,
+        txSigner: txSigner,
+        chainNameOrId: 'sepolia',
+        registry: '0x03d5003bf0e79C5F5223588F347ebA39AfbC3818',
+      });
+
+      // VCを署名して発行
+      const vc = await ethrDid.signJWT(vcpayload);
+      console.log('=== VC発行完了 ===');
+      console.log('発行されたVC:', vc);
+      return vc;
+    } catch (error: any) {
+      console.error('=== VC発行エラー ===');
+      console.error('Error details:', error);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      throw error;
+    }
+  }
+
+  // VC（Verifiable Credential）を検証
+  async verifyVc(vc: string): Promise<boolean> {
+    const providerConfig = {
+      // While experimenting, you can set a rpc endpoint to be used by the web3 provider
+      rpcUrl: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      // You can also set the address for your own ethr-did-registry (ERC1056) contract
+      registry: '0x03d5003bf0e79C5F5223588F347ebA39AfbC3818',
+      name: 'sepolia', // this becomes did:ethr:development:0x...
+    };
+
+    // It's recommended to use the multi-network configuration when using this in production
+    // since that allows you to resolve on multiple public and private networks at the same time.
+
+    // getResolver will return an object with a key/value pair of { "ethr": resolver } where resolver is a function used by the generic did resolver.
+    const ethrDidResolver = getResolver(providerConfig);
+    const didResolver = new Resolver(ethrDidResolver);
+    try {
+      // VCを検証
+      console.log('=== VC検証開始 ===');
+      // did-jwt-vcを使用してVCを検証（DIDドキュメントから公開鍵を取得して検証）
+      await verifyCredential(vc, didResolver);
+      console.log('=== VC検証成功 ===');
+      return true;
+    } catch (error: any) {
+      console.error('Error verifying VC:', error);
+      return false;
+    }
+  }
+}
