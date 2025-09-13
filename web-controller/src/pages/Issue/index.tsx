@@ -63,7 +63,7 @@ export const Issue: React.FC = () => {
     setIsRegistering(true);
     setRegistrationStatus("");
     try {
-      await axios.post("http://localhost:3000/registerDID");
+      await axios.post("http://localhost:3001/registerDID");
       setRegistrationStatus("DID登録が完了しました！ブロックチェーンに記録されました。");
     } catch (error) {
       console.error("Error registering DID:", error);
@@ -76,7 +76,7 @@ export const Issue: React.FC = () => {
   const handleGetCurrentDID = async () => {
     setIsLoadingDID(true);
     try {
-      const res = await axios.get("http://localhost:3000/getCurrentDID");
+      const res = await axios.get("http://localhost:3001/getCurrentDID");
       setCurrentDIDInfo(res.data);
     } catch (error) {
       console.error("Error getting current DID:", error);
@@ -91,7 +91,7 @@ export const Issue: React.FC = () => {
     setResolutionStatus("");
     setDidDocument("");
     try {
-      const res = await axios.get("http://localhost:3000/resolveDID");
+      const res = await axios.get("http://localhost:3001/resolveDID");
       setDidDocument(JSON.stringify(res.data, null, 2));
       setResolutionStatus("DID解決が成功しました！");
     } catch (error) {
@@ -111,8 +111,8 @@ export const Issue: React.FC = () => {
         birthDate,
         licenseType
       });
-      
-      const res = await axios.post("http://localhost:3000/issueVc", {
+
+      const res = await axios.post("http://localhost:3001/issueVc", {
         issuerPrivateKey,
         hodlerAddress: holderAddress,
         driverName,

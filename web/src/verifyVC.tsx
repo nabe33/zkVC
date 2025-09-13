@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import logoImg from './assets/logo.png';
+import TopPage from './topPage';
+import MyPage from './myPage';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import companyLogoImg from './assets/company-logo.png';
@@ -96,6 +99,17 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
 }
 
 export default function VerifyVc1() {
+  const [showTopPage, setShowTopPage] = useState(false);
+  const [showMyPage, setShowMyPage] = useState(false);
+
+  if (showTopPage) {
+    return <TopPage />;
+  }
+
+  if (showMyPage) {
+    return <MyPage />;
+  }
+
   return (
     <div className="bg-white content-stretch flex flex-col gap-2 items-center justify-start relative size-full" data-name="Verify VC1" data-node-id="27:197">
       <div className="box-border content-stretch flex gap-[154px] items-center justify-center pb-[19px] pt-[21px] px-4 relative shrink-0 w-[402px]" data-name="Status bar - iPhone" data-node-id="27:198">
@@ -103,7 +117,7 @@ export default function VerifyVc1() {
       </div>
       <div className="box-border content-stretch flex gap-5 items-center justify-start px-2.5 py-0 relative shrink-0 w-[402px]" data-name="Header Box" data-node-id="78:139">
         <div aria-hidden="true" className="absolute border border-[#27c840] border-solid inset-0 pointer-events-none" />
-        <div className="bg-center bg-cover bg-no-repeat shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_139-21_184" style={{ backgroundImage: `url('${logoImg}')` }} />
+        <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_139-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowTopPage(true)} />
         <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[40px] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I78_139-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="mb-0">Verifiable</p>
           <p className>Credential</p>
@@ -204,7 +218,7 @@ export default function VerifyVc1() {
         <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative shrink-0 size-12" data-name="Setting Icon button" id="node-I78_518-11_98">
           <IconButton style="standard" state="enabled" />
         </div>
-        <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" id="node-I78_518-11_144">
+        <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" id="node-I78_518-11_144" onClick={() => setShowTopPage(true)}>
           <div className="box-border content-stretch flex gap-2 items-center justify-center pl-4 pr-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I78_518-11_144-53923_27801">
             <div className="relative shrink-0 size-[18px]" data-name="icon" id="node-I78_518-11_144-53923_27802">
               <div className="absolute contents inset-0" data-name="vuesax/linear/house" id="node-I78_518-11_144-53923_27802-1_42591">
@@ -217,7 +231,7 @@ export default function VerifyVc1() {
           </div>
         </div>
         <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" id="node-I78_518-11_100">
-          <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px w-[101px]" data-name="Login Button" id="node-I78_518-11_101">
+          <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px w-[101px]" data-name="Login Button" id="node-I78_518-11_101" onClick={() => setShowMyPage(true)}>
             <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I78_518-11_101-53923_27817">
               <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I78_518-11_101-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[24px] whitespace-pre">Your page</p>

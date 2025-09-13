@@ -89,7 +89,7 @@ export const VerifyVC: React.FC = () => {
   
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/verifyVc", {
+      const res = await axios.post("http://localhost:3001/verifyVc", {
         vc,
       });
       setResult(res.data ? 'success' : 'failure');

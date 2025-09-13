@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import VerifyVC from './verifyVC'
+import TopPage from './topPage'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
@@ -153,9 +154,14 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
 
 export default function MyPage() {
   const [showVerifyVC, setShowVerifyVC] = useState(false);
+  const [showTopPage, setShowTopPage] = useState(false);
 
   if (showVerifyVC) {
     return <VerifyVC />;
+  }
+
+  if (showTopPage) {
+    return <TopPage />;
   }
 
   return (
@@ -165,7 +171,7 @@ export default function MyPage() {
       </div>
       <div className="box-border content-stretch flex gap-5 items-center justify-start px-2.5 py-0 relative shrink-0 w-[402px]" data-name="Header Box" data-node-id="78:129">
         <div aria-hidden="true" className="absolute border border-[#27c840] border-solid inset-0 pointer-events-none" />
-        <div className="bg-center bg-cover bg-no-repeat shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_129-21_184" style={{ backgroundImage: `url('${logoImg}')` }} />
+        <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_129-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowTopPage(true)} />
         <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[0] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I78_129-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="leading-[40px]">My Trust</p>
         </div>
@@ -259,7 +265,7 @@ export default function MyPage() {
           <ButtonDark labelText="Privacy Settings" style="Filled" state="enabled" showIcon="False" />
         </div>
         <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" id="node-I78_324-11_100">
-          <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px" data-name="Login Button" id="node-I78_324-11_101">
+          <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px" data-name="Login Button" id="node-I78_324-11_101" onClick={() => setShowTopPage(true)}>
             <ButtonDark labelText="Logout" style="Filled" state="enabled" showIcon="False" />
           </div>
         </div>

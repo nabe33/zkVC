@@ -204,7 +204,7 @@ export default function TopPage() {
       </div>
       <div className="box-border content-stretch flex gap-5 items-center justify-start px-2.5 py-0 relative shrink-0 w-[402px]" data-name="Header Box" data-node-id="77:119">
         <div aria-hidden="true" className="absolute border border-[#27c840] border-solid inset-0 pointer-events-none" />
-        <div className="bg-center bg-cover bg-no-repeat shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I77_119-21_184" style={{ backgroundImage: `url('${logoImg}')` }} />
+        <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I77_119-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowMyPage(false)} />
         <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[0] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I77_119-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="leading-[40px]">Show Trust</p>
         </div>
