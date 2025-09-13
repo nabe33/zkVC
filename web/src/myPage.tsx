@@ -113,9 +113,9 @@ function SocialNetworkBox() {
           </div>
           <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" data-node-id="11:154" />
           <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" data-node-id="11:155">
-            <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
+            <div className="absolute bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I11_156-53923_27817">
-                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-gray-500 text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[24px] whitespace-pre">detail</p>
                 </div>
               </div>
@@ -277,20 +277,20 @@ export default function MyPage() {
               <p className="leading-[36px]">88%</p>
             </div>
           </div>
-          <div className="box-border content-stretch flex flex-col gap-2.5 items-center justify-start overflow-clip p-[10px] relative shrink-0 w-[300px]" data-name="Score Details" id="node-I78_259-7_51">
-            <div className="absolute h-9 left-[-1px] overflow-clip top-0.5 w-[300px]" id="node-I78_259-7_177">
-              <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[21px] translate-y-[-50%]" id="node-I78_259-7_180" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[28px] whitespace-pre">{`Activity Score: 86 `}</p>
+          <div className="box-border content-stretch flex flex-col gap-1 items-center justify-start overflow-clip p-[10px] relative shrink-0 w-[300px]" data-name="Score Details" id="node-I78_259-7_51">
+            <div className="h-7 left-[-1px] overflow-clip w-[300px]" id="node-I78_259-7_177">
+              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_180" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="leading-[22px] whitespace-pre">{`Activity Score: 86 `}</p>
               </div>
             </div>
-            <div className="absolute h-9 left-[-1px] overflow-clip top-[37px] w-[300px]" id="node-I78_259-7_178">
-              <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[26px] translate-y-[-50%]" id="node-I78_259-7_181" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[28px] whitespace-pre">{`Certification level:  90`}</p>
+            <div className="h-7 left-[-1px] overflow-clip w-[300px]" id="node-I78_259-7_178">
+              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_181" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="leading-[22px] whitespace-pre">{`Certification level:  90`}</p>
               </div>
             </div>
-            <div className="absolute h-9 left-0 overflow-clip top-[76px] w-[300px]" id="node-I78_259-7_179">
-              <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[26px] translate-y-[-50%]" id="node-I78_259-7_182" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[28px] whitespace-pre">Community Evaluation: 88</p>
+            <div className="h-7 left-0 overflow-clip w-[300px]" id="node-I78_259-7_179">
+              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_182" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <p className="leading-[22px] whitespace-pre">Community Evaluation: 88</p>
               </div>
             </div>
           </div>
@@ -307,8 +307,8 @@ export default function MyPage() {
         <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative shrink-0 size-12" data-name="Setting Icon button" id="node-I78_324-11_98">
           <IconButton style="standard" state="enabled" />
         </div>
-        <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" id="node-I78_324-11_144">
-          <ButtonDark labelText="Privacy Settings" style="Filled" state="enabled" showIcon="False" />
+        <div className="bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" id="node-I78_324-11_144">
+          <ButtonDark labelText="Privacy Settings" style="Filled" state="disabled" showIcon="False" />
         </div>
         <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" id="node-I78_324-11_100">
           <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px" data-name="Login Button" id="node-I78_324-11_101" onClick={() => setShowTopPage(true)}>

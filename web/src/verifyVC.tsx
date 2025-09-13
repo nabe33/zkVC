@@ -206,9 +206,9 @@ export default function VerifyVc1() {
                 </div>
               </div>
             </div>
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" data-node-id="42:858">
+            <div className="bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Login Button" data-node-id="42:858">
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I42_858-53923_27817">
-                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I42_858-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-gray-500 text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I42_858-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[24px] whitespace-pre">Privacy Settings</p>
                 </div>
               </div>

@@ -105,9 +105,9 @@ function DidBox() {
             <p className="leading-[36px] whitespace-pre">DID:</p>
           </div>
           <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" data-node-id="6:235" />
-          <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Search Button" data-node-id="6:232">
+          <div className="bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Search Button" data-node-id="6:232">
             <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I6_232-53923_27817">
-              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I6_232-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-gray-500 text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I6_232-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                 <p className="leading-[24px] whitespace-pre">Search</p>
               </div>
             </div>
@@ -149,20 +149,20 @@ function TrustBox() {
             <p className="leading-[36px]">66%</p>
           </div>
         </div>
-        <div className="box-border content-stretch flex flex-col gap-2.5 items-center justify-start overflow-clip p-[10px] relative shrink-0 w-[300px]" data-name="Score Details" data-node-id="7:51">
-          <div className="absolute h-9 left-[-1px] overflow-clip top-0.5 w-[300px]" data-node-id="7:177">
-            <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[21px] translate-y-[-50%]" data-node-id="7:180" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[28px] whitespace-pre">Activity Score: 64 </p>
+        <div className="box-border content-stretch flex flex-col gap-1 items-center justify-start overflow-clip p-[10px] relative shrink-0 w-[300px]" data-name="Score Details" data-node-id="7:51">
+          <div className="h-7 left-[-1px] overflow-clip top-0.5 w-[300px]" data-node-id="7:177">
+            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" data-node-id="7:180" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="leading-[22px] whitespace-pre">Activity Score: 64 </p>
             </div>
           </div>
-          <div className="absolute h-9 left-[-1px] overflow-clip top-[37px] w-[300px]" data-node-id="7:178">
-            <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[26px] translate-y-[-50%]" data-node-id="7:181" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[28px] whitespace-pre">Certification level: 80</p>
+          <div className="h-7 left-[-1px] overflow-clip w-[300px]" data-node-id="7:178">
+            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" data-node-id="7:181" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="leading-[22px] whitespace-pre">Certification level: 80</p>
             </div>
           </div>
-          <div className="absolute h-9 left-0 overflow-clip top-[76px] w-[300px]" data-node-id="7:179">
-            <div className="absolute flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[22px] text-black text-nowrap top-[26px] translate-y-[-50%]" data-node-id="7:182" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[28px] whitespace-pre">Community Evaluation: 54</p>
+          <div className="h-7 left-0 overflow-clip w-[300px]" data-node-id="7:179">
+            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" data-node-id="7:182" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="leading-[22px] whitespace-pre">Community Evaluation: 54</p>
             </div>
           </div>
         </div>
@@ -198,9 +198,9 @@ function SocialNetworkBox() {
           </div>
           <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" data-node-id="11:154" />
           <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" data-node-id="11:155">
-            <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
+            <div className="absolute bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I11_156-53923_27817">
-                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-gray-500 text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[24px] whitespace-pre">detail</p>
                 </div>
               </div>
