@@ -12,9 +12,9 @@
   "credentialSubject": {
     "id": "did:ethr:sepolia:0xd5D71AF8d9571F41e01Ab0C826a927df96D3e80d",
     "driverLicense": {
-      "driverName": "渡辺隆行",
+      "driverName": "Takayuki Watanabe",
       "birthDate": "2000-07-01",
-      "licenseType": "普通運転免許"
+      "licenseType": "Driver's License"
     }
   },
   "proof": {
