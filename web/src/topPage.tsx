@@ -198,9 +198,9 @@ function SocialNetworkBox() {
           </div>
           <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" data-node-id="11:154" />
           <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" data-node-id="11:155">
-            <div className="absolute bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
+            <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[17px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Login Button" data-node-id="11:156">
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I11_156-53923_27817">
-                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-gray-500 text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
+                <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I11_156-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
                   <p className="leading-[24px] whitespace-pre">detail</p>
                 </div>
               </div>
