@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import MyPage from './myPage'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
@@ -54,6 +54,26 @@ function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
 }
 
 function DidBox() {
+  const [currentDID, setCurrentDID] = useState<string>('Loading...');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDID = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/getCurrentDID');
+        const data = await response.json();
+        setCurrentDID(data.did || 'DID not found');
+      } catch (error) {
+        console.error('Error fetching DID:', error);
+        setCurrentDID('Error loading DID');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDID();
+  }, []);
+
   return (
     <div className="relative size-full" data-name="DID Box" data-node-id="78:150">
       <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-center p-[10px] relative size-full">
@@ -78,9 +98,8 @@ function DidBox() {
           </div>
         </div>
         <div className="h-[49px] overflow-clip relative shrink-0 w-full" data-name="Frame content" data-node-id="6:236">
-          <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-1/2 text-[14px] text-black text-center text-nowrap top-1/2 tracking-[0.1px] translate-x-[-50%] translate-y-[-50%] whitespace-pre" data-node-id="6:245" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="mb-0">did:ethr:</p>
-            <p className>0x12345678d9571F41e01Ab0C826a927df87654321</p>
+          <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-0 right-0 text-[14px] text-black text-center top-1/2 tracking-[0.1px] translate-y-[-50%] px-2 w-full" data-node-id="6:245" style={{ fontVariationSettings: "'wdth' 100" }}>
+            <p className="break-all w-full">{isLoading ? 'Loading...' : currentDID}</p>
           </div>
         </div>
       </div>

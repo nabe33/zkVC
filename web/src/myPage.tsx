@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import VerifyVC from './verifyVC'
 import TopPage from './topPage'
 import avatar12Img from './assets/avatar-12.png';
@@ -155,6 +155,25 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
 export default function MyPage() {
   const [showVerifyVC, setShowVerifyVC] = useState(false);
   const [showTopPage, setShowTopPage] = useState(false);
+  const [currentDID, setCurrentDID] = useState<string>('Loading...');
+  const [isLoadingDID, setIsLoadingDID] = useState(true);
+
+  useEffect(() => {
+    const fetchDID = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/getCurrentDID');
+        const data = await response.json();
+        setCurrentDID(data.did || 'DID not found');
+      } catch (error) {
+        console.error('Error fetching DID:', error);
+        setCurrentDID('Error loading DID');
+      } finally {
+        setIsLoadingDID(false);
+      }
+    };
+
+    fetchDID();
+  }, []);
 
   if (showVerifyVC) {
     return <VerifyVC />;
@@ -191,9 +210,8 @@ export default function MyPage() {
             </div>
           </div>
           <div className="h-[49px] overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_163-6_236">
-            <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-1/2 text-[14px] text-black text-center text-nowrap top-1/2 tracking-[0.1px] translate-x-[-50%] translate-y-[-50%] whitespace-pre" id="node-I78_163-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="mb-0">did:ethr:</p>
-              <p className>0x12345678d9571F41e01Ab0C826a927df87654321</p>
+            <div className="absolute flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] left-0 right-0 text-[14px] text-black text-center top-1/2 tracking-[0.1px] translate-y-[-50%] px-2 w-full" id="node-I78_163-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
+              <p className="break-all w-full">{isLoadingDID ? 'Loading...' : currentDID}</p>
             </div>
           </div>
         </div>
