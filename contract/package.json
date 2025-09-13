@@ -1,0 +1,28 @@
+{
+  "name": "age-verification-contracts",
+  "version": "1.0.0",
+  "description": "Solidity contracts for age verification using zk-SNARKs",
+  "scripts": {
+    "build": "forge build",
+    "test": "forge test",
+    "deploy": "forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast --verify -vvvv",
+    "deploy:sepolia": "forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast --verify -vvvv",
+    "deploy:localhost": "forge script script/Deploy.s.sol:DeployScript --rpc-url localhost --broadcast",
+    "clean": "forge clean",
+    "fmt": "forge fmt",
+    "snapshot": "forge snapshot",
+    "verify": "forge verify-contract --chain sepolia --watch"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "solidity",
+    "smart-contracts",
+    "zk-snarks",
+    "age-verification",
+    "foundry"
+  ],
+  "author": "",
+  "license": "MIT"
+}

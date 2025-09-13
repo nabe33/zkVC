@@ -1,0 +1,27 @@
+{
+  "iat": 1757385261,
+  "@context": [
+    "https://www.w3.org/2018/credentials/v1"
+  ],
+  "type": [
+    "VerifiableCredential",
+    "DriverLicenseCredential"
+  ],
+  "issuer": "did:ethr:sepolia:0x1Be31A94361a391bBaFB2a4CCd704F57dc04d4bb",
+  "issuanceDate": "2025-09-09T02:34:21.747Z",
+  "credentialSubject": {
+    "id": "did:ethr:sepolia:0xd5D71AF8d9571F41e01Ab0C826a927df96D3e80d",
+    "driverLicense": {
+      "driverName": "渡辺隆行",
+      "birthDate": "2000-07-01",
+      "licenseType": "普通運転免許"
+    }
+  },
+  "proof": {
+    "type": "EcdsaSecp256k1Signature2019",
+    "created": "2025-09-09T02:34:21.747Z",
+    "proofPurpose": "assertionMethod",
+    "verificationMethod": "did:ethr:sepolia:0x1Be31A94361a391bBaFB2a4CCd704F57dc04d4bb#delegate-1"
+  },
+  "iss": "did:ethr:sepolia:0x1Be31A94361a391bBaFB2a4CCd704F57dc04d4bb"
+}
