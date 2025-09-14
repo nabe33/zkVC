@@ -286,4 +286,94 @@ export class AppService {
       return { success: false, message: `Copy failed: ${error.message}` };
     }
   }
+
+  // JSON形式のVC（Verifiable Credential）を検証
+  async verifyJsonVc(vcJson: any): Promise<boolean> {
+    try {
+      console.log('=== JSON VC検証開始 ===');
+      console.log('検証対象VC:', vcJson);
+
+      // 基本的なVC構造の検証
+      if (!vcJson || typeof vcJson !== 'object') {
+        console.error('Invalid VC: not an object');
+        return false;
+      }
+
+      // 必須フィールドの存在確認
+      const requiredFields = ['@context', 'type', 'issuer', 'issuanceDate', 'credentialSubject'];
+      for (const field of requiredFields) {
+        if (!vcJson[field]) {
+          console.error(`Invalid VC: missing required field ${field}`);
+          return false;
+        }
+      }
+
+      // typeの検証
+      if (!Array.isArray(vcJson.type) || !vcJson.type.includes('VerifiableCredential')) {
+        console.error('Invalid VC: type must be array containing VerifiableCredential');
+        return false;
+      }
+
+      // contextの検証
+      if (!Array.isArray(vcJson['@context']) || !vcJson['@context'].includes('https://www.w3.org/2018/credentials/v1')) {
+        console.error('Invalid VC: @context must contain standard VC context');
+        return false;
+      }
+
+      // issuerの検証（DID形式かチェック）
+      if (typeof vcJson.issuer !== 'string' || !vcJson.issuer.startsWith('did:')) {
+        console.error('Invalid VC: issuer must be a DID string');
+        return false;
+      }
+
+      // credentialSubjectの検証
+      if (!vcJson.credentialSubject || typeof vcJson.credentialSubject !== 'object') {
+        console.error('Invalid VC: credentialSubject must be an object');
+        return false;
+      }
+
+      if (!vcJson.credentialSubject.id || !vcJson.credentialSubject.id.startsWith('did:')) {
+        console.error('Invalid VC: credentialSubject.id must be a DID string');
+        return false;
+      }
+
+      // 運転免許証特有の検証
+      if (vcJson.type.includes('DriverLicenseCredential')) {
+        const driverLicense = vcJson.credentialSubject.driverLicense;
+        if (!driverLicense || !driverLicense.driverName || !driverLicense.birthDate || !driverLicense.licenseType) {
+          console.error('Invalid DriverLicenseCredential: missing required driver license fields');
+          return false;
+        }
+      }
+
+      // issuanceDateの検証
+      const issuanceDate = new Date(vcJson.issuanceDate);
+      if (isNaN(issuanceDate.getTime())) {
+        console.error('Invalid VC: issuanceDate is not a valid date');
+        return false;
+      }
+
+      // 発行日が未来でないことを確認
+      const now = new Date();
+      if (issuanceDate > now) {
+        console.error('Invalid VC: issuanceDate cannot be in the future');
+        return false;
+      }
+
+      // proofの検証（存在する場合）
+      if (vcJson.proof) {
+        if (typeof vcJson.proof !== 'object' || !vcJson.proof.type || !vcJson.proof.verificationMethod) {
+          console.error('Invalid VC: proof structure is invalid');
+          return false;
+        }
+      }
+
+      console.log('=== JSON VC検証成功 ===');
+      return true;
+    } catch (error: any) {
+      console.error('=== JSON VC検証エラー ===');
+      console.error('Error verifying JSON VC:', error);
+      return false;
+    }
+  }
 }

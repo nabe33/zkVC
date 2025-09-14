@@ -5,6 +5,10 @@ type VerifyVc = {
   vc: string;
 };
 
+type VerifyJsonVc = {
+  vcJson: any;
+};
+
 type IssueVc = {
   issuerPrivateKey: string;
   hodlerAddress: string;
@@ -56,5 +60,10 @@ export class AppController {
   @Post('/copyVcFile')
   async copyVcFile(): Promise<{ success: boolean; message: string }> {
     return await this.appService.copyVcFile();
+  }
+
+  @Post('/verifyJsonVc')
+  async verifyJsonVc(@Body() body: VerifyJsonVc): Promise<boolean> {
+    return await this.appService.verifyJsonVc(body.vcJson);
   }
 }

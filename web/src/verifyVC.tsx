@@ -108,6 +108,9 @@ export default function VerifyVc1() {
   const [isResolveError, setIsResolveError] = useState(false);
   const [vcData, setVcData] = useState<any>(null);
   const [isLoadingVC, setIsLoadingVC] = useState(true);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verifyStatus, setVerifyStatus] = useState<string | null>(null);
+  const [isVerifyError, setIsVerifyError] = useState(false);
 
   useEffect(() => {
     const fetchDID = async () => {
@@ -186,6 +189,47 @@ export default function VerifyVc1() {
     }
   };
 
+  const handleVerifyVC = async () => {
+    if (!vcData) {
+      setVerifyStatus('Verify Failed');
+      setIsVerifyError(true);
+      return;
+    }
+
+    setIsVerifying(true);
+    setVerifyStatus(null);
+    try {
+      const response = await fetch('http://localhost:3001/verifyJsonVc', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          vcJson: vcData,
+        }),
+      });
+
+      if (response.ok) {
+        const isValid = await response.json();
+        if (isValid) {
+          setVerifyStatus('Verify Success');
+          setIsVerifyError(false);
+        } else {
+          setVerifyStatus('Verify Failed');
+          setIsVerifyError(true);
+        }
+      } else {
+        throw new Error('Verify request failed');
+      }
+    } catch (error) {
+      console.error('Error verifying VC:', error);
+      setVerifyStatus('Verify Failed');
+      setIsVerifyError(true);
+    } finally {
+      setIsVerifying(false);
+    }
+  };
+
   if (showTopPage) {
     return <TopPage />;
   }
@@ -234,17 +278,17 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
-      <div className="basis-0 bg-[#cfffd7] grow min-h-[200px] relative shrink-0 w-[400px]" data-name="VCFrame" data-node-id="27:210">
-        <div className="box-border content-stretch flex flex-col gap-[15px] h-full items-center justify-start overflow-clip p-[10px] relative w-[400px]">
+      <div className="bg-[#cfffd7] min-h-[200px] relative w-[400px]" data-name="VCFrame" data-node-id="27:210">
+        <div className="box-border content-stretch flex flex-col gap-[15px] items-center justify-start p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-2 items-center justify-start relative shrink-0 w-full" data-name="VC header" data-node-id="27:211">
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="27:212" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[36px] whitespace-pre">VC:</p>
             </div>
             <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-4 2" data-node-id="36:765" style={{ backgroundImage: `url('${tokyoUniversityLogoImg}')` }} />
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Verify Button" data-node-id="27:207">
+            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Verify Button" data-node-id="27:207" onClick={handleVerifyVC}>
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I27_207-53923_27817">
                 <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I27_207-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
-                  <p className="leading-[24px] whitespace-pre">Verify</p>
+                  <p className="leading-[24px] whitespace-pre">{isVerifying ? 'Verifying...' : 'Verify'}</p>
                 </div>
               </div>
             </div>
@@ -256,8 +300,8 @@ export default function VerifyVc1() {
               </div>
             </div>
           </div>
-          <div className="content-stretch flex flex-col gap-2.5 items-start justify-start overflow-clip relative shrink-0 w-full" data-name="VC content" data-node-id="27:214">
-            <div className="box-border content-stretch flex gap-2.5 items-start justify-start overflow-clip px-2 py-0 relative shrink-0 w-full" data-name="28:283">
+          <div className="content-stretch flex flex-col gap-2.5 items-start justify-start relative w-full" data-name="VC content" data-node-id="27:214">
+            <div className="box-border content-stretch flex gap-2.5 items-start justify-start px-2 py-0 relative w-full" data-name="28:283">
               <div className="font-['Roboto:Regular',_sans-serif] font-normal leading-[24px] relative shrink-0 text-[16px] text-black tracking-[0.5px] text-left w-full" data-node-id="28:284" style={{ fontVariationSettings: "'wdth' 100" }}>
                 {isLoadingVC ? (
                   <p>Loading VC data...</p>
@@ -267,6 +311,13 @@ export default function VerifyVc1() {
                     <p className="mb-1 break-all"><span className="font-bold">issuanceDate:</span> {vcData.issuanceDate ? new Date(vcData.issuanceDate).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/') : 'N/A'}</p>
                     <p className="mb-1 break-all"><span className="font-bold">driverName:</span> {vcData.credentialSubject?.driverLicense?.driverName || 'N/A'}</p>
                     <p className="mb-1 break-all"><span className="font-bold">licenseType:</span> {vcData.credentialSubject?.driverLicense?.licenseType || 'N/A'}</p>
+                    {verifyStatus && (
+                      <div className={`mt-3 p-2 rounded border-2 ${isVerifyError ? 'text-red-600 bg-red-50 border-red-300' : 'text-green-600 bg-green-50 border-green-300'}`}>
+                        <p className="text-sm font-bold">
+                          {verifyStatus}
+                        </p>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <p>No VC data available</p>
