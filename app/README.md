@@ -1,6 +1,8 @@
 # Age Verification ZKP System
 
-This system verifies that a user is at least 20 years old using zero-knowledge proofs, without revealing their exact birthdate.
+This system (directory) verifies that a user is at least 20 years old using ZKP, without revealing their exact birthdate.
+
+You don't have to use this directory.  If you want to make a ZKP onchain using Verifier.sol, you can use  'ageVerifier.sol'.
 
 ## Components
 
