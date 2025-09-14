@@ -66,4 +66,9 @@ export class AppController {
   async verifyJsonVc(@Body() body: VerifyJsonVc): Promise<boolean> {
     return await this.appService.verifyJsonVc(body.vcJson);
   }
+
+  @Post('/verifyAge')
+  async verifyAge(): Promise<{ success: boolean; message: string }> {
+    return await this.appService.verifyAge();
+  }
 }

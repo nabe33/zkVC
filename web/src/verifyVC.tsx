@@ -111,6 +111,9 @@ export default function VerifyVc1() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [verifyStatus, setVerifyStatus] = useState<string | null>(null);
   const [isVerifyError, setIsVerifyError] = useState(false);
+  const [isVerifyingAge, setIsVerifyingAge] = useState(false);
+  const [ageVerifyStatus, setAgeVerifyStatus] = useState<string | null>(null);
+  const [isAgeVerifyError, setIsAgeVerifyError] = useState(false);
 
   useEffect(() => {
     const fetchDID = async () => {
@@ -230,6 +233,39 @@ export default function VerifyVc1() {
     }
   };
 
+  const handleAgeVerification = async () => {
+    setIsVerifyingAge(true);
+    setAgeVerifyStatus(null);
+    try {
+      const response = await fetch('http://localhost:3001/verifyAge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Age verification result:', result);
+        if (result.success) {
+          setAgeVerifyStatus('Yes');
+          setIsAgeVerifyError(false);
+        } else {
+          setAgeVerifyStatus('No');
+          setIsAgeVerifyError(true);
+        }
+      } else {
+        throw new Error('Age verification request failed');
+      }
+    } catch (error) {
+      console.error('Error verifying age:', error);
+      setAgeVerifyStatus('No');
+      setIsAgeVerifyError(true);
+    } finally {
+      setIsVerifyingAge(false);
+    }
+  };
+
   if (showTopPage) {
     return <TopPage />;
   }
@@ -328,22 +364,31 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
-      <div className="bg-[#cfffd7] relative shrink-0 w-[400px]" data-name="ProofFrame" data-node-id="42:862">
-        <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-start overflow-clip px-2.5 py-0 relative w-[400px]">
+      <div className="bg-[#cfffd7] relative w-[400px]" data-name="ProofFrame" data-node-id="42:862">
+        <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-start px-2.5 py-2 relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" data-node-id="42:863">
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="42:864" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[36px] whitespace-pre">Proof:</p>
             </div>
             <div className="h-11 relative shrink-0 w-[170px]" data-name="Ask queation" data-node-id="42:865">
-              <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-0 overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Ask Question Button" data-node-id="42:866">
+              <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-0 overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Ask Question Button" data-node-id="42:866" onClick={handleAgeVerification}>
                 <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I42_866-53923_27817">
                   <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I42_866-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
-                    <p className="leading-[24px] whitespace-pre">Are you older than 20?</p>
+                    <p className="leading-[24px] whitespace-pre">{isVerifyingAge ? 'Verifying...' : 'Are you older than 20?'}</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {ageVerifyStatus && (
+            <div className="content-stretch flex flex-col items-start justify-start relative w-full px-2">
+              <div className={`mt-2 p-2 rounded border-2 w-full ${isAgeVerifyError ? 'text-red-600 bg-red-50 border-red-300' : 'text-green-600 bg-green-50 border-green-300'}`}>
+                <p className="text-sm font-bold">
+                  {ageVerifyStatus}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>

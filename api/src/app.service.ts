@@ -6,6 +6,7 @@ import { EthrDID, KeyPair } from 'ethr-did';
 import { ethers, Wallet } from 'ethers';
 import * as fs from 'fs';
 import * as path from 'path';
+const snarkjs = require('snarkjs');
 @Injectable()
 export class AppService {
   private ethrDidInstance: EthrDID | null = null; // EthrDIDインスタンスをキャッシュ
@@ -256,9 +257,9 @@ export class AppService {
       console.log('=== VCファイルコピー開始 ===');
 
       // ソースファイル（vc/vc.json）のパス
-      const sourcePath = path.join(__dirname, '../../../vc/vc.json');
+      const sourcePath = path.join(__dirname, '../../vc/vc.json');
       // コピー先ファイル（web/public/vc.json）のパス
-      const destinationPath = path.join(__dirname, '../../../web/public/vc.json');
+      const destinationPath = path.join(__dirname, '../../web/public/vc.json');
 
       console.log('Source path:', sourcePath);
       console.log('Destination path:', destinationPath);
@@ -374,6 +375,120 @@ export class AppService {
       console.error('=== JSON VC検証エラー ===');
       console.error('Error verifying JSON VC:', error);
       return false;
+    }
+  }
+
+  // ゼロ知識証明による年齢検証
+  async verifyAge(): Promise<{ success: boolean; message: string }> {
+    try {
+      console.log('=== 年齢検証開始 ===');
+
+      // VCファイルからbirthdateを取得
+      const vcPath = path.join(__dirname, '../../vc/vc.json');
+      console.log('Looking for VC file at:', vcPath);
+      if (!fs.existsSync(vcPath)) {
+        return { success: false, message: 'VC file not found' };
+      }
+
+      const vcData = JSON.parse(fs.readFileSync(vcPath, 'utf8'));
+      const birthDate = vcData.credentialSubject?.driverLicense?.birthDate;
+
+      if (!birthDate) {
+        return { success: false, message: 'Birth date not found in VC' };
+      }
+
+      console.log(`Birthday from VC: ${birthDate}`);
+
+      // 誕生日をUnix timestampに変換 (private input)
+      const birthdayUnix = Math.floor(new Date(birthDate).getTime() / 1000);
+
+      // 現在の日時をUnix timestampに変換 (public input)
+      const todayUnix = Math.floor(Date.now() / 1000);
+
+      console.log(`Birthday Unix: ${birthdayUnix}`);
+      console.log(`Today Unix: ${todayUnix}`);
+
+      // 年齢を計算（デバッグ用）
+      const ageInSeconds = todayUnix - birthdayUnix;
+      const ageInYears = ageInSeconds / (365.25 * 24 * 60 * 60);
+      console.log(`Calculated age: ${ageInYears.toFixed(2)} years`);
+      console.log(`Is over 20? ${ageInYears >= 20}`);
+
+      // Circomファイルのパスを確認
+      const wasmPath = path.join(__dirname, '../../circom/work/ageCheck/ageCheck_js/ageCheck.wasm');
+      const zkeyPath = path.join(__dirname, '../../circom/work/ageCheck/circuit_final.zkey');
+
+      if (!fs.existsSync(wasmPath)) {
+        console.error(`WASM file not found: ${wasmPath}`);
+        return {
+          success: false,
+          message: 'Zero-knowledge proof files not found - WASM file missing'
+        };
+      }
+
+      if (!fs.existsSync(zkeyPath)) {
+        console.error(`Zkey file not found: ${zkeyPath}`);
+        return {
+          success: false,
+          message: 'Zero-knowledge proof files not found - Zkey file missing'
+        };
+      }
+
+      // zk-SNARKプルーフを生成
+      console.log('Generating zk-SNARK proof...');
+      const input = {
+        birthday: birthdayUnix.toString(),
+        today: todayUnix.toString()
+      };
+
+      console.log('Input:', input);
+
+      const { proof, publicSignals } = await snarkjs.plonk.fullProve(
+        input,
+        wasmPath,
+        zkeyPath
+      );
+
+      console.log('Proof generated successfully');
+      console.log('Public signals:', publicSignals);
+
+      // プルーフの検証（ローカルで行う簡易版）
+      // 実際のプロジェクトではverification keyを使用して検証する
+      const verificationKeyPath = path.join(__dirname, '../../circom/work/ageCheck/verification_key.json');
+
+      if (fs.existsSync(verificationKeyPath)) {
+        try {
+          const vKey = JSON.parse(fs.readFileSync(verificationKeyPath, 'utf8'));
+          const isValid = await snarkjs.plonk.verify(vKey, publicSignals, proof);
+
+          console.log('=== 年齢検証完了 ===');
+          console.log(`ZK proof verification result: ${isValid}`);
+          return {
+            success: isValid,
+            message: isValid ? 'Age verification successful with ZK proof' : 'Age verification failed'
+          };
+        } catch (error) {
+          console.error('Verification error:', error);
+          return {
+            success: false,
+            message: 'Zero-knowledge proof verification failed'
+          };
+        }
+      } else {
+        // Verification keyがない場合はエラー
+        console.error(`Verification key not found: ${verificationKeyPath}`);
+        return {
+          success: false,
+          message: 'Zero-knowledge proof files not found - Verification key missing'
+        };
+      }
+
+    } catch (error: any) {
+      console.error('=== 年齢検証エラー ===');
+      console.error('Error details:', error);
+      const result = { success: false, message: `Age verification failed: ${error.message}` };
+      console.log('Returning error result:', result);
+      return result;
     }
   }
 }

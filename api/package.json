@@ -30,7 +30,8 @@
     "ethr-did": "^3.0.21",
     "ethr-did-resolver": "^11.0.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "snarkjs": "^0.7.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
