@@ -12,11 +12,10 @@ Screen design and page taransitions are designed with Figma:
 cd web
 npm install
 npm run dev
+# Frontend runs on http://localhost:5173
 ```
 
 Note: It requires API sever running.
-
-# Frontend runs on http://localhost:5173
 
 
 # React + TypeScript + Vite
