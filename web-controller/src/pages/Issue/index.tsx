@@ -17,7 +17,7 @@ const Container = styled("div")({
 
 export const Issue: React.FC = () => {
   const navigate = useNavigate();
-  const [issuerPrivateKey, setIssuerPrivateKey] = useState("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");
+  const [issuerPrivateKey, setIssuerPrivateKey] = useState("0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef");  // for testing
   const [holderAddress, setHolderAddress] = useState("");
   const [driverName, setDriverName] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -64,7 +64,7 @@ export const Issue: React.FC = () => {
     setRegistrationStatus("");
     try {
       await axios.post("http://localhost:3001/registerDID");
-      setRegistrationStatus("DID登録が完了しました！ブロックチェーンに記録されました。");
+      setRegistrationStatus("DID登録が完了しました！ブロックチェーンに記録されました。");  // Success DID registration on a DID registry (blockchai
     } catch (error) {
       console.error("Error registering DID:", error);
       setRegistrationStatus("DID登録でエラーが発生しました。");
@@ -93,7 +93,7 @@ export const Issue: React.FC = () => {
     try {
       const res = await axios.get("http://localhost:3001/resolveDID");
       setDidDocument(JSON.stringify(res.data, null, 2));
-      setResolutionStatus("DID解決が成功しました！");
+      setResolutionStatus("DID解決が成功しました！");  // Success DID resolution from a DID registry (blockchain)
     } catch (error) {
       console.error("Error resolving DID:", error);
       setResolutionStatus("DID解決でエラーが発生しました。DIDが登録されていない可能性があります。");
