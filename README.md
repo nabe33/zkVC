@@ -18,7 +18,7 @@ Thus, the developed system, **zkVC**, is a part of a digital identity system tha
 
 ## Development process of the system
 
-### Requirments
+### Requirements
 
 - Handling identity with decentralized SSI.
 - Supports n:1 relationships with SNS accounts through some method (e.g., embedding within SNS accounts, linking DIDs to SNS user profiles).
@@ -31,7 +31,7 @@ Thus, the developed system, **zkVC**, is a part of a digital identity system tha
 - Trustworthiness scores from other services can also be displayed.  (not implemented at this version)
 - Features a user-friendly UI/UX based on human-centered design.
 
-Technical requirments:
+Technical requirements:
 - DID and VC utilize [“ERC-1056: Ethereum Lightweight Identity”](https://eips.ethereum.org/EIPS/eip-1056) . The DID repository uses the ERC-1056 repository.
 - VC linked to NFTs utilize [“ERC-7861: ERC-721 Verifiable Credential Extension”](https://eips.ethereum.org/EIPS/eip-7861) . VC are stored in a location inaccessible to anyone and can only be accessed through system verification and VC publication. (ERC 7861 is not implemented at this version)
 - The frontend uses React. An API server is placed between the frontend and the contracts. The contract side uses Foundry.
@@ -40,14 +40,14 @@ Technical requirments:
 
 ### Human-Centered Development (UX Deisgn)
 
-As a profssional UX designer, I used a Human-Centered Deisgn to set the following factors:
+As a professional UX designer, I used a Human-Centered Design to set the following factors:
 
-- Vision: Solve social media issues like fake news and fake accounts using Web3 technology and philosophy.
-- Purpose: Focus on trustworthiness, demonstrating the reliability of social media information through human trustworthiness tied to digital identity.
-- Concept: Easy to use and conveys trustworthiness.
-- Target Users: Social media users. Individuals and society impacted by social media.
-- User Needs: Target users utilize this system when they wish to verify the reliability of social media information.
-- Surface Design: Use green as the theme color to convey trustworthiness. Employ a soft green to evoke approachability and ease of use. Text color is black. Use red as an accent color. Create a functional design.
+- **Vision**: Solve social media issues like fake news and fake accounts using Web3 technology and philosophy.
+- **Purpose**: Focus on trustworthiness, demonstrating the reliability of social media information through human trustworthiness tied to digital identity.
+- **Concept**: Easy to use and conveys trustworthiness.
+- **Target Users**: Social media users. Individuals and society impacted by social media.
+- **User Needs**: Target users utilize this system when they wish to verify the reliability of social media information.
+- **Surface Design**: Use green as the theme color to convey trustworthiness. Employ a soft green to evoke approachability and ease of use. Text color is black. Use red as an accent color. Create a functional design.
 
 ### 9-panel UX storyboard
 
@@ -55,9 +55,11 @@ As a profssional UX designer, I used a Human-Centered Deisgn to set the followin
 
 ### Prototype design with Figma
 
-According to the requirments, Human-Centered Design, and 9-panel UX storyboard, I design the screen and some functions that must be implemented in the current development.
+According to the requirements, Human-Centered Design, and 9-panel UX storyboard, I used Figma to design the screen and some functions that must be implemented in the current development.
 
 ![design of prototype system](./assets/FigmaPreview2.png) 
+
+As I used the Figma MPC server to write React frontend code, the React code is poorly written and needs rewriting, but I couldn't do it this time. The design of React frontend, however, perfectly replicates Figma’s design.
 
 ## Specific Implementation of zkVC
 
@@ -68,8 +70,8 @@ The zkVC system is built on a multi-layered architecture that combines Web2 and 
 ```
 ┌─────────────────────────────────────────┐
 │               Frontend (Web)            │
-│        React + TypeScript + Vite       │
-│         Tailwind CSS             │
+│        React + TypeScript + Vite        │
+│         Tailwind CSS                    │
 └─────────────────────────────────────────┘
                      │
 ┌─────────────────────────────────────────┐
@@ -81,14 +83,14 @@ The zkVC system is built on a multi-layered architecture that combines Web2 and 
                      │
 ┌─────────────────────────────────────────┐
 │            Blockchain Layer             │
-│         EIP-1056 (EthrDID)             │
-│      Ethereum Sepolia Testnet          │
+│         EIP-1056 (EthrDID)              │
+│      Ethereum Sepolia Testnet           │
 │         Smart Contracts                 │
 └─────────────────────────────────────────┘
                      │
 ┌─────────────────────────────────────────┐
 │          ZK Circuit Layer               │
-│        Circom + SnarkJS (Plonk)        │
+│        Circom + SnarkJS (Plonk)         │
 │       Age Verification Circuits         │
 │         Privacy-Preserving              │
 └─────────────────────────────────────────┘
@@ -158,7 +160,7 @@ npm run start:dev
 
 #### 3. Frontend Setup
 
-This is the zkVC system. It requirs API sever running.
+This is the zkVC system. It requires API sever running.
 
 ```bash
 cd web
@@ -190,7 +192,7 @@ CONTRACT_ADDRESS=0x...deployed-verifier-contract-address
 ```
 
 #### 6. Zero-Knowledge Circuit Setup
-circom/circuit/ageCheck.circom is a circuit to zk proof that the driver is older than 20 with privte input of birthday and public input of today's date.
+circom/circuit/ageCheck.circom is a circuit to zk proof that the driver is older than 20 with private input of birthday and public input of today's date.
 
 Output will be saved in a directory circom/work/ageCheck. verifyAge function of API sever uses this output to make ZKP.
 
@@ -209,7 +211,7 @@ snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
 #### 7. Other Directories
 - contract directory provides a contract to verify driver's age with ZKP, using AgeVerifier.sol and Verifier.sol.
 - app directory verifies that a user is at least 20 years old using ZKP, without revealing their exact birthdate. You don't have to use this directory. If you want to make a ZKP onchain using Verifier.sol, you can use 'ageVerifier.sol'.
-- vc/vc.json is the VC the currwnt system uses.
+- vc/vc.json is the VC the current system uses.
   
 ### Technical Details
 
