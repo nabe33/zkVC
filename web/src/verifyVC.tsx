@@ -290,6 +290,7 @@ export default function VerifyVc1() {
           <MessageQuestion />
         </div>
       </div>
+      {/* DID box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:175">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_175-6_237">
@@ -314,6 +315,7 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* VC box */}
       <div className="bg-[#cfffd7] min-h-[200px] relative w-[400px]" data-name="VCFrame" data-node-id="27:210">
         <div className="box-border content-stretch flex flex-col gap-[15px] items-center justify-start p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-2 items-center justify-start relative shrink-0 w-full" data-name="VC header" data-node-id="27:211">
@@ -364,12 +366,14 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Proof box */}
       <div className="bg-[#cfffd7] relative w-[400px]" data-name="ProofFrame" data-node-id="42:862">
         <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-start px-2.5 py-2 relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" data-node-id="42:863">
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="42:864" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[36px] whitespace-pre">Proof:</p>
             </div>
+            {/* Age verification button */}
             <div className="h-11 relative shrink-0 w-[170px]" data-name="Ask queation" data-node-id="42:865">
               <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-0 overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-0" data-name="Ask Question Button" data-node-id="42:866" onClick={handleAgeVerification}>
                 <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I42_866-53923_27817">
@@ -392,6 +396,7 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Other VCs box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[400px]" data-name="IssueVCFrame" data-node-id="42:849">
         <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-start overflow-clip px-2.5 py-0 relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" data-node-id="42:850">
@@ -405,6 +410,7 @@ export default function VerifyVc1() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Footer box */}
       <div className="bg-[#13a229] box-border content-stretch flex gap-[54px] h-14 items-center justify-start px-[7px] py-0 relative shrink-0 w-[402px]" data-name="Footter Box" data-node-id="78:518">
         <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative shrink-0 size-12" data-name="Setting Icon button" id="node-I78_518-11_98">
           <IconButton style="standard" state="enabled" />
