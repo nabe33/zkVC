@@ -4,6 +4,8 @@ import { getResolver } from 'ethr-did-resolver';
 import { verifyCredential } from 'did-jwt-vc';
 import { EthrDID, KeyPair } from 'ethr-did';
 import { ethers, Wallet } from 'ethers';
+import * as fs from 'fs';
+import * as path from 'path';
 @Injectable()
 export class AppService {
   private ethrDidInstance: EthrDID | null = null; // EthrDIDインスタンスをキャッシュ
@@ -245,6 +247,43 @@ export class AppService {
     } catch (error: any) {
       console.error('Error verifying VC:', error);
       return false;
+    }
+  }
+
+  // VCファイルをwebアプリのpublicディレクトリにコピー
+  async copyVcFile(): Promise<{ success: boolean; message: string }> {
+    try {
+      console.log('=== VCファイルコピー開始 ===');
+
+      // ソースファイル（vc/vc.json）のパス
+      const sourcePath = path.join(__dirname, '../../../vc/vc.json');
+      // コピー先ファイル（web/public/vc.json）のパス
+      const destinationPath = path.join(__dirname, '../../../web/public/vc.json');
+
+      console.log('Source path:', sourcePath);
+      console.log('Destination path:', destinationPath);
+
+      // ソースファイルが存在するかチェック
+      if (!fs.existsSync(sourcePath)) {
+        console.error('Source file does not exist:', sourcePath);
+        return { success: false, message: 'Source VC file not found' };
+      }
+
+      // コピー先ディレクトリが存在するかチェック（なければ作成）
+      const destinationDir = path.dirname(destinationPath);
+      if (!fs.existsSync(destinationDir)) {
+        fs.mkdirSync(destinationDir, { recursive: true });
+      }
+
+      // ファイルをコピー
+      fs.copyFileSync(sourcePath, destinationPath);
+
+      console.log('=== VCファイルコピー完了 ===');
+      return { success: true, message: 'VC file copied successfully' };
+    } catch (error: any) {
+      console.error('=== VCファイルコピーエラー ===');
+      console.error('Error details:', error);
+      return { success: false, message: `Copy failed: ${error.message}` };
     }
   }
 }

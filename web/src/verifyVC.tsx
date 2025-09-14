@@ -106,6 +106,8 @@ export default function VerifyVc1() {
   const [isResolving, setIsResolving] = useState(false);
   const [resolveStatus, setResolveStatus] = useState<string | null>(null);
   const [isResolveError, setIsResolveError] = useState(false);
+  const [vcData, setVcData] = useState<any>(null);
+  const [isLoadingVC, setIsLoadingVC] = useState(true);
 
   useEffect(() => {
     const fetchDID = async () => {
@@ -122,6 +124,46 @@ export default function VerifyVc1() {
     };
 
     fetchDID();
+  }, []);
+
+  useEffect(() => {
+    const fetchVC = async () => {
+      try {
+        // まずVCファイルをコピー
+        console.log('Copying VC file...');
+        const copyResponse = await fetch('http://localhost:3001/copyVcFile', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (copyResponse.ok) {
+          const copyResult = await copyResponse.json();
+          console.log('Copy result:', copyResult);
+        } else {
+          console.warn('Failed to copy VC file, trying to fetch existing one');
+        }
+
+        // 少し待ってからVCデータを取得
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        const response = await fetch('/vc.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Fetched VC data:', data); // デバッグ用ログ
+        setVcData(data);
+      } catch (error) {
+        console.error('Error fetching VC data:', error);
+        setVcData(null);
+      } finally {
+        setIsLoadingVC(false);
+      }
+    };
+
+    fetchVC();
   }, []);
 
   const handleResolveDID = async () => {
@@ -215,13 +257,20 @@ export default function VerifyVc1() {
             </div>
           </div>
           <div className="content-stretch flex flex-col gap-2.5 items-start justify-start overflow-clip relative shrink-0 w-full" data-name="VC content" data-node-id="27:214">
-            <div className="box-border content-stretch flex gap-2.5 items-center justify-start overflow-clip px-2 py-0 relative shrink-0 w-full" data-node-id="28:283">
-              <div className="font-['Roboto:Regular',_sans-serif] font-normal leading-[24px] relative shrink-0 text-[16px] text-black text-nowrap tracking-[0.5px] whitespace-pre" data-node-id="28:284" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="mb-0">Issuer: xxxxxxxxxxx</p>
-                <p className="mb-0">Issue date: 2025/09/15</p>
-                <p className="mb-0">category: xxxxxxxxxxxx</p>
-                <p className="mb-0">grade: xxxxxxxxxxxx</p>
-                <p className>......</p>
+            <div className="box-border content-stretch flex gap-2.5 items-start justify-start overflow-clip px-2 py-0 relative shrink-0 w-full" data-name="28:283">
+              <div className="font-['Roboto:Regular',_sans-serif] font-normal leading-[24px] relative shrink-0 text-[16px] text-black tracking-[0.5px] text-left w-full" data-node-id="28:284" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {isLoadingVC ? (
+                  <p>Loading VC data...</p>
+                ) : vcData ? (
+                  <>
+                    <p className="mb-1 break-all"><span className="font-bold">type:</span> {vcData.type ? vcData.type.join(', ') : 'N/A'}</p>
+                    <p className="mb-1 break-all"><span className="font-bold">issuanceDate:</span> {vcData.issuanceDate ? new Date(vcData.issuanceDate).toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '/') : 'N/A'}</p>
+                    <p className="mb-1 break-all"><span className="font-bold">driverName:</span> {vcData.credentialSubject?.driverLicense?.driverName || 'N/A'}</p>
+                    <p className="mb-1 break-all"><span className="font-bold">licenseType:</span> {vcData.credentialSubject?.driverLicense?.licenseType || 'N/A'}</p>
+                  </>
+                ) : (
+                  <p>No VC data available</p>
+                )}
               </div>
             </div>
           </div>

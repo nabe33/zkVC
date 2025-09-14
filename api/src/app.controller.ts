@@ -52,4 +52,9 @@ export class AppController {
   async verifyVc(@Body() body: VerifyVc): Promise<boolean> {
     return await this.appService.verifyVc(body.vc);
   }
+
+  @Post('/copyVcFile')
+  async copyVcFile(): Promise<{ success: boolean; message: string }> {
+    return await this.appService.copyVcFile();
+  }
 }
