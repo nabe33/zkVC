@@ -76,6 +76,7 @@ function ButtonDark({ icon = null, labelText = "Label", style = "Tonal", state =
   );
 }
 
+// ActivitiesBox and SocialNetworkBox are placeholders for future features
 function ActivitiesBox() {
   return (
     <div className="relative size-full" data-name="Activities Box" data-node-id="78:270">
@@ -221,6 +222,7 @@ export default function MyPage() {
           <MessageQuestion />
         </div>
       </div>
+      {/* MyDID Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:163">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_163-6_237">
@@ -245,6 +247,7 @@ export default function MyPage() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* VC Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:225">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
           <div className="content-stretch flex font-['Roboto:Regular',_sans-serif] font-normal gap-[15px] items-center justify-start leading-[0] relative shrink-0 text-black text-nowrap w-full" data-name="Frame header" id="node-I78_225-6_247">
@@ -266,6 +269,7 @@ export default function MyPage() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Trust Box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[402px]" data-name="Trust Box" data-node-id="78:259">
         <div className="box-border content-stretch flex items-center justify-between overflow-clip px-2 py-0 relative w-[402px]">
           <div className="basis-0 box-border content-stretch flex flex-col gap-[15px] grow h-[126px] items-start justify-start min-h-px min-w-px px-[5px] py-2.5 relative shrink-0" data-name="Score Frame" id="node-I78_259-7_44">
@@ -297,12 +301,15 @@ export default function MyPage() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Activities Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="Activities Box" data-node-id="78:271">
         <ActivitiesBox />
       </div>
+      {/* SocialNetwork Box */}
       <div className="bg-[#cfffd7] h-[134px] relative shrink-0 w-[402px]" data-name="SocialNetwork Box" data-node-id="78:315">
         <SocialNetworkBox />
       </div>
+      {/* Footter Box */}
       <div className="bg-[#13a229] box-border content-stretch flex gap-[26px] h-14 items-center justify-start px-[7px] py-0 relative shrink-0 w-[402px]" data-name="Footter Box" data-node-id="78:324">
         <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative shrink-0 size-12" data-name="Setting Icon button" id="node-I78_324-11_98">
           <IconButton style="standard" state="enabled" />

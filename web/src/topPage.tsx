@@ -53,6 +53,7 @@ function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
   );
 }
 
+// DID Box component with fetch and resolve functionality
 function DidBox() {
   const [currentDID, setCurrentDID] = useState<string>('Loading...');
   const [isLoading, setIsLoading] = useState(true);
@@ -136,6 +137,7 @@ function DidBox() {
   );
 }
 
+// Trust Box component
 function TrustBox() {
   return (
     <div className="relative size-full" data-name="Trust Box" data-node-id="78:236">
@@ -188,6 +190,7 @@ function Component3DAvatars10() {
   );
 }
 
+// SocialNetwork Box component
 function SocialNetworkBox() {
   return (
     <div className="relative size-full" data-name="SocialNetwork Box" data-node-id="78:306">
@@ -259,9 +262,11 @@ export default function TopPage() {
           <MessageQuestion />
         </div>
       </div>
+      {/* DID Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:151">
         <DidBox />
       </div>
+      {/* VC Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:188">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
           <div className="content-stretch flex font-['Roboto:Regular',_sans-serif] font-normal gap-[15px] items-center justify-start leading-[0] relative shrink-0 text-black text-nowrap w-full" data-name="Frame header" id="node-I78_188-6_247">
@@ -279,9 +284,11 @@ export default function TopPage() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* Trust Box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[402px]" data-name="Trust Box" data-node-id="78:248">
         <TrustBox />
       </div>
+      {/* Activities Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="Activities Box" data-node-id="78:295">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_295-11_85">
@@ -301,9 +308,11 @@ export default function TopPage() {
         </div>
         <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
       </div>
+      {/* SocialNetwork Box */}
       <div className="bg-[#cfffd7] h-[134px] relative shrink-0 w-[402px]" data-name="SocialNetwork Box" data-node-id="78:307">
         <SocialNetworkBox />
       </div>
+      {/* Footer Box */}
       <div className="bg-[#13a229] box-border content-stretch flex gap-[26px] h-14 items-center justify-start px-[7px] py-0 relative shrink-0 w-[402px]" data-name="Footter Box" data-node-id="78:337">
         <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative shrink-0 size-12" data-name="Setting Icon button" id="node-I78_337-11_98">
           <IconButton style="standard" state="enabled" />
