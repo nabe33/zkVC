@@ -2,7 +2,9 @@
 
 This web-controller and ../api directory was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc). It is a full-stack application implementing Decentralized Identifiers (DID) and Verifiable Credentials (VC) using EIP/ERC-1056.
 
-You need to run this server when you want issue DID document and check functions around DID and VC. Otherwise, you don't have to run this server.
+You need to run this server when you want to issue DID document and check functions around DID and VC. Otherwise, you don't have to run this server.
+
+It runs on http://localhost:3002
 
 ## Overview
 

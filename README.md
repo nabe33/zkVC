@@ -61,188 +61,230 @@ According to the requirments, Human-Centered Design, and 9-panel UX storyboard, 
 
 ## Specific Implementation of zkVC
 
-A privacy-preserving age verification system using zero-knowledge proofs (zk-SNARKs) that proves a user is over 20 years old without revealing their exact birthdate.
+### System Architecture
 
-## Overview
-
-This system combines Verifiable Credentials (VCs), Circom circuits, and Ethereum smart contracts to create a trustless age verification mechanism that protects user privacy while providing cryptographic proof of age eligibility.
-
-## System Architecture
+The zkVC system is built on a multi-layered architecture that combines Web2 and Web3 technologies to provide a comprehensive digital identity and trust verification platform:
 
 ```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Verifiable    │    │   Circom Circuit │    │   Ethereum      │
-│   Credential    │───▶│   (zk-SNARK)     │───▶│   Smart Contract│
-│   (VC.json)     │    │   Age ≥ 20       │    │   Verification  │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
+┌─────────────────────────────────────────┐
+│               Frontend (Web)            │
+│        React + TypeScript + Vite       │
+│         Tailwind CSS             │
+└─────────────────────────────────────────┘
+                     │
+┌─────────────────────────────────────────┐
+│              API Server                 │
+│           NestJS + Express              │
+│     DID Resolution + VC Verification    │
+│         ZK Proof Generation             │
+└─────────────────────────────────────────┘
+                     │
+┌─────────────────────────────────────────┐
+│            Blockchain Layer             │
+│         EIP-1056 (EthrDID)             │
+│      Ethereum Sepolia Testnet          │
+│         Smart Contracts                 │
+└─────────────────────────────────────────┘
+                     │
+┌─────────────────────────────────────────┐
+│          ZK Circuit Layer               │
+│        Circom + SnarkJS (Plonk)        │
+│       Age Verification Circuits         │
+│         Privacy-Preserving              │
+└─────────────────────────────────────────┘
 ```
 
-## Project Structure
+### Project Structure
 
 ```
 zkp_vc/
-├── circom/                 # Zero-knowledge circuits
-│   ├── circuit/           # Circom source files
-│   └── work/ageCheck/     # Compiled circuit artifacts
-├── contract/              # Ethereum smart contracts
-│   ├── AgeVerifier.sol    # Main verification contract
-│   └── script/Verifier.sol # Plonk verifier contract
-├── vc/                    # Verifiable credentials
-│   └── vc.json           # Sample VC with birthdate
-├── app/                   # Age verification application
-│   └── ageVerification.js # Main verification script
-└── web/                   # React frontend demo
-    └── src/              # UI components
+├── api/                    # NestJS API Server
+│   ├── src/
+│   │   ├── app.controller.ts  # REST API endpoints
+│   │   ├── app.service.ts     # Core business logic
+│   │   └── main.ts           # Server bootstrap
+│   └── package.json
+├── web/                    # React Frontend
+│   ├── src/
+│   │   ├── topPage.tsx       # Main dashboard
+│   │   ├── myPage.tsx        # User profile page
+│   │   ├── verifyVC.tsx      # VC verification interface
+│   │   └── main.tsx          # React entry point
+│   └── package.json
+├── web-controller/         # EIP-1056 Web Controller (you don't have to use it)
+│   ├── src/
+│   │   ├── App.tsx           # DID management interface
+│   │   └── components/       # React components
+│   └── package.json
+├── contract/               # Smart Contracts
+│   ├── script/
+│   │   └── Verifier.sol      # ZK proof verifier contract
+│   └── foundry.toml
+├── circom/                 # Zero-Knowledge Circuits
+│   ├── circuits/
+│   │   └── ageCheck.circom   # Age verification circuit
+│   └── work/                 # Generated circuit files
+├── vc/                     # Verifiable Credentials
+│   └── vc.json              # Sample driver's license VC
+├── app/                    # Standalone Applications to check ZKP (you don't have to use it)
+│   └── ageVerification.js   # CLI age verification tool
+└── README.md
 ```
 
-## Quick Start
+### Quick Start
 
-### Prerequisites
+#### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Git
+- circom and snarkjs
 
-- [Node.js](https://nodejs.org/) (v16+)
-- [Foundry](https://book.getfoundry.sh/getting-started/installation)
-- [Circom](https://docs.circom.io/getting-started/installation/)
+#### 1. Clone and Setup
+```bash
+git clone <repository-url>
+cd zkp_vc
+```
 
-### 1. Setup
+#### 2. API Server Setup
+
+The API server provides functions of interacting with EIP1056 contract, treating local VC, and making a ZKP using Plonk. Web frontend uses these APIs.
 
 ```bash
-# Clone and install dependencies
-cd app && npm install
-cd ../contract && npm install
-
-# Install Foundry dependencies
-cd contract && forge install foundry-rs/forge-std
+cd api
+npm install
+npm run start:dev
+# Server runs on http://localhost:3001
 ```
 
-### 2. Configure Environment
+#### 3. Frontend Setup
 
-```bash
-# Copy environment template
-cp app/.env.example app/.env
-cp contract/.env.example contract/.env
-
-# Edit .env files with your Sepolia testnet credentials:
-# - RPC_URL: Infura/Alchemy Sepolia endpoint
-# - PRIVATE_KEY: Your wallet private key (test wallet only!)
-# - ETHERSCAN_API_KEY: For contract verification
-```
-
-### 3. Get Sepolia ETH
-
-Visit any Sepolia faucet:
-- https://sepoliafaucet.com/
-- https://www.alchemy.com/faucets/ethereum-sepolia
-
-### 4. Deploy Contracts
-
-```bash
-cd contract
-forge build
-npm run deploy
-# Copy the deployed AgeVerifier address to app/.env
-```
-
-### 5. Run Age Verification
-
-```bash
-cd app
-npm run verify
-```
-
-## How It Works
-
-1. **VC Processing**: Extracts birthdate from `vc.json` and converts to Unix timestamp
-2. **Proof Generation**: Uses Circom circuit to generate zk-SNARK proof that `today - birthday ≥ 631,238,400` seconds (≈20 years)
-3. **On-chain Verification**: Submits proof to Ethereum smart contract using Plonk verifier
-4. **Privacy Preservation**: Birthdate remains private; only the boolean result (age ≥ 20) is revealed
-
-## Technical Details
-
-### Circom Circuit (`ageCheck.circom`)
-- **Private Input**: `birthday` (Unix timestamp)
-- **Public Input**: `today` (Unix timestamp)  
-- **Constraint**: Proves `today - birthday ≥ 631,238,400` seconds
-- **Security**: Range constraints prevent field overflow attacks
-
-### Smart Contracts
-- **PlonkVerifier**: Cryptographic proof verification
-- **AgeVerifier**: Business logic, user management, event emission
-
-### Verification Process
-```javascript
-// 1. Parse VC
-const birthdate = vc.credentialSubject.driverLicense.birthDate; // "2000-07-01"
-const birthdayUnix = Math.floor(new Date(birthdate).getTime() / 1000);
-
-// 2. Generate proof
-const { proof, publicSignals } = await snarkjs.plonk.fullProve({
-    birthday: birthdayUnix.toString(),
-    today: Math.floor(Date.now() / 1000).toString()
-}, wasmPath, zkeyPath);
-
-// 3. Verify on-chain
-const success = await ageVerifier.verifyAge(formattedProof, todayUnixTime);
-```
-
-## Frontend Demo
-
-The React frontend (`/web`) provides an interactive demo with:
-- SNS-style interface showing user profile
-- Navigation between different verification screens
-- VC display and verification workflow
-- Mobile-responsive design
+This is the zkVC system. It requirs API sever running.
 
 ```bash
 cd web
 npm install
 npm run dev
+# Frontend runs on http://localhost:5173
 ```
 
-## Verification Example
+#### 4. EIP-1056 Web Controller Setup
 
-For a user born on `2000-07-01`:
-- **Birthdate Unix**: `962409600`
-- **Today Unix**: `1757686635` (example)
-- **Age in seconds**: `795,277,035`
-- **Required threshold**: `631,238,400` (20 years)
-- **Result**: ✅ Verified (age ≥ 20)
+This web-controller and the api server was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc) . It is a full-stack application implementing DID and VCs using EIP/ERC-1056.
 
-## Security Considerations
+You need to run this server when you want to issue DID document and check functions around DID and VC. Otherwise, you don't have to run this server.
 
-- **Range Constraints**: Prevents malicious inputs that could exploit field arithmetic
-- **Trusted Setup**: Uses Powers of Tau ceremony for cryptographic security
-- **Private Key Management**: Use test wallets only; never expose production keys
-- **Time Validation**: Consider timezone and clock skew in production deployments
+```bash
+cd web-controller
+npm install
+npm run dev
+# It runs on http://localhost:3002
+```
 
-## Network Configuration
+#### 5. Environment Configuration
+Create `.env` files in the `api` and `app` directories:
+```env
+# api/.env and app/.env
+RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
+PRIVATE_KEY=0x...your-private-key
+CONTRACT_ADDRESS=0x...deployed-verifier-contract-address
+```
 
-Currently configured for **Sepolia Testnet**:
-- **Chain ID**: 11155111
-- **Native Currency**: Sepolia ETH (test tokens)
-- **Block Explorer**: https://sepolia.etherscan.io/
+#### 6. Zero-Knowledge Circuit Setup
+circom/circuit/ageCheck.circom is a circuit to zk proof that the driver is older than 20 with privte input of birthday and public input of today's date.
 
-## Additional Resources
+Output will be saved in a directory circom/work/ageCheck. verifyAge function of API sever uses this output to make ZKP.
 
-- [Circom Documentation](https://docs.circom.io/)
-- [snarkjs Library](https://github.com/iden3/snarkjs)
-- [Foundry Book](https://book.getfoundry.sh/)
-- [Verifiable Credentials Specification](https://www.w3.org/TR/vc-data-model/)
+```bash
+cd circom
+# Install circom and snarkjs globally if not already installed
+npm install -g circom snarkjs
 
-## Contributing
+# Compile circuit
+circom circuits/ageCheck.circom --r1cs --wasm --sym -o work/
+# Generate trusted setup (for demo purposes)
+snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
+# ... (complete trusted setup process)
+```
 
-1. Fork the repository
-2. Create a feature branch
-3. Test your changes thoroughly
-4. Submit a pull request
+#### 7. Other Directories
+- contract directory provides a contract to verify driver's age with ZKP, using AgeVerifier.sol and Verifier.sol.
+- app directory verifies that a user is at least 20 years old using ZKP, without revealing their exact birthdate. You don't have to use this directory. If you want to make a ZKP onchain using Verifier.sol, you can use 'ageVerifier.sol'.
+- vc/vc.json is the VC the currwnt system uses.
+  
+### Technical Details
 
-## Disclaimer
+#### Core Technologies
 
-This is a proof-of-concept implementation. For production use:
-- Conduct thorough security audits
-- Use production-grade infrastructure
-- Implement proper key management
-- Consider regulatory compliance requirements
+**Frontend Stack:**
+- **React 18** with TypeScript for type-safe UI development
+- **Vite** for fast development and build tooling
+- **Tailwind CSS** for utility-first styling (web frontend)
+- **Material-UI (MUI)** for consistent component design (web-controller)
+- **Axios** for HTTP client communications
 
-## License
+**Backend Stack:**
+- **NestJS** framework for scalable Node.js applications
+- **Express** as the underlying HTTP server
+- **TypeScript** for type safety and modern JavaScript features
 
-MIT License - see LICENSE file for details.
+**Blockchain Integration:**
+- **EIP-1056 (EthrDID)** for Ethereum-based Decentralized Identifiers
+- **did-resolver** and **ethr-did-resolver** for DID resolution
+- **ethers.js v6** for Ethereum blockchain interactions
+- **Sepolia Testnet** for development and testing
+
+**Zero-Knowledge Proofs:**
+- **Circom** for arithmetic circuit development
+- **SnarkJS** for proof generation and verification
+- **PLONK** proving system for efficient proofs
+- **Custom age verification circuit** for privacy-preserving age checks
+
+#### Key Features
+
+##### 1. Decentralized Identity Management
+- **DID Creation**: Generate Ethereum-based DIDs using EIP-1056 standard
+- **DID Resolution**: Resolve DIDs to their corresponding DID Documents
+- **Cross-platform Compatibility**: Works with any EIP-1056 compatible system
+
+##### 2. Verifiable Credential Processing
+- **VC Parsing**: Support for JSON-LD formatted Verifiable Credentials
+- **Schema Validation**: Validate VCs against expected schemas
+- **Credential Display**: User-friendly presentation of credential data
+- **Privacy Controls**: Selective disclosure of credential information
+
+##### 3. Zero-Knowledge Age Verification
+- **Private Input Processing**: Birthday from VC remains confidential
+- **Public Proof Generation**: Proves age ≥ 20 without revealing exact age
+- **Circuit Security**: Cryptographically secure age verification
+- **On-chain Verification**: Optional smart contract verification (available but not required)
+
+##### 4. Trust Scoring System (not implemented in the current system)
+- **Multi-dimensional Assessment**: Evaluate trust across multiple criteria
+- **Activity History**: Track and display user activity patterns
+- **Verification Levels**: Show different levels of identity verification
+- **Community Ratings**: Aggregate community-based trust scores
+
+##### 5. Social Network Visualization (not implemented in the current system)
+- **Connection Mapping**: Visualize trusted connections and relationships
+- **Trust Propagation**: Leverage social proof for enhanced trust assessment
+- **Network Analysis**: Analyze connection quality and trustworthiness
+
+#### Security Considerations
+
+- **Private Key Management**: Secure storage and handling of cryptographic keys
+- **Zero-Knowledge Privacy**: No sensitive data disclosed during proof generation
+- **Smart Contract Security**: Audited verification contracts (when used)
+- **Input Validation**: Comprehensive validation of all user inputs
+- **CORS Protection**: Proper cross-origin resource sharing configuration
+
+#### Development Philosophy
+
+The zkVC system follows a **privacy-first** approach where:
+- Users maintain full control over their personal data
+- Zero-knowledge proofs minimize information disclosure
+- Decentralized architecture reduces single points of failure
+- Open standards (W3C DID/VC) ensure interoperability
+- Human-centered design prioritizes user experience
+
+This implementation serves as a foundation for building trust networks in digital spaces while preserving individual privacy and autonomy.
+
