@@ -259,8 +259,8 @@ export default function MyPage() {
             <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-2 1" id="node-I78_225-7_200" style={{ backgroundImage: `url('${driversLicenseLogoImg}')` }} />
             <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11 cursor-pointer" data-name="20250905DigitalIdentityLogo1-4 1" id="node-I78_225-31_306" style={{ backgroundImage: `url('${tokyoUniversityLogoImg}')` }} onClick={() => setShowVerifyVC(true)} />
             <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-3 1" id="node-I78_225-78_197" style={{ backgroundImage: `url('${companyLogoImg}')` }} />
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col h-11 items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 w-[83px]" data-name="Add Button" id="node-I78_225-78_215">
-              <ButtonDark labelText="Add" style="Filled" state="enabled" showIcon="False" />
+            <div className="bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col h-11 items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 w-[83px]" data-name="Add Button" id="node-I78_225-78_215">
+              <ButtonDark labelText="Add" style="Filled" state="disabled" showIcon="False" />
             </div>
           </div>
         </div>
