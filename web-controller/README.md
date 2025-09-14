@@ -1,11 +1,13 @@
 # eip1056 test frontend
 
-This web-controller and ../api directory was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc). It is a full-stack application implementing Decentralized Identifiers (DID) and Verifiable Credentials (VC) using EIP/ERC-1056 (Ethereum Improvement Proposal 1056).
+This web-controller and ../api directory was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc). It is a full-stack application implementing Decentralized Identifiers (DID) and Verifiable Credentials (VC) using EIP/ERC-1056.
+
+You need to run this server when you want issue DID document and check functions around DID and VC. Otherwise, you don't have to run this server.
 
 ## Overview
 
-- **Backend**: API server using NestJS
-- **Frontend**: Web application using React + TypeScript + Material-UI
+- **Backend**: API server using NestJS (api/)
+- **Frontend**: Web application using React + TypeScript + Material-UI (web-controller/)
 - **Blockchain**: Ethereum Sepolia testnet (uses pre-deployed smart contracts)
 - **DID Standard**: EIP/ERC-1056 (EthrDID)
 - **VC Standard**: Verifiable Credentials in JWT format
@@ -26,7 +28,7 @@ npm run dev
 
 ## Using the Application
 
-Access `http://localhost:5173` in your browser and follow these steps to use the application:
+Access `http://localhost:3002` in your browser and follow these steps to use the application:
 
 1. **Step 0**: Verify Current DID - Display DID information set via environment variables
 2. **Step 1**: DID Registration - Register a DID on the blockchain
