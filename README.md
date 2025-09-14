@@ -51,13 +51,13 @@ As a profssional UX designer, I used a Human-Centered Deisgn to set the followin
 
 ### 9-panel UX storyboard
 
-[9-panel UX storyboard](./assets/9panelUXstoryboard.png)
+![9-panel UX storyboard](./assets/9panelUXstoryboard.png)
 
 ### Prototype design with Figma
 
 According to the requirments, Human-Centered Design, and 9-panel UX storyboard, I design the screen and some functions that must be implemented in the current development.
 
-[design of prototype system](./assets/FigmaPreview2.png) 
+![design of prototype system](./assets/FigmaPreview2.png) 
 
 ## Specific Implementation of zkVC
 
