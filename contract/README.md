@@ -1,6 +1,6 @@
 # Age Verify Contract
 
-## Discription
+## Description
 
 This is a contract to verify driver's age with ZKP, using AgeVerifier.sol and Verifier.sol.
 
