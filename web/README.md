@@ -1,3 +1,24 @@
+# Description
+
+This is the React frontend of zkVC. 
+
+Screen design and page taransitions are designed with Figma:
+
+![Screen deisgn](../assets/FigmaPreview2.png)
+
+## Setup
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+Note: It requires API sever running.
+
+# Frontend runs on http://localhost:5173
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
