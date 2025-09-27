@@ -1,20 +1,24 @@
-# Digital Identity -> Trust system: zkVC
+# zkVC: digital identity system to show trust
+
+## Note
+This project was developed quickly for a hackathon, so the code has not been sufficiently rewritten or debugged. Improvements will be made in the future.
 
 ## Global Scope
 
-As written in [“Solving Web2 SNS Issues with Web3,”](https://note.com/nabe33/n/n2541b68c26ef) I, as a researcher, designer, and builder, am interested in resolving current SNS issues such as fake news, believing that “**digital identity**” is key. The crucial themes are how to control the identity of information publishers in digital worlds like SNS and demonstrate their **trust**. 
+As written in [“Solving Web2 SNS Issues with Web3,”](https://note.com/nabe33/n/n2541b68c26ef) I, as a researcher, designer, and builder, am interested in resolving current SNS (Social Network Services) issues such as fake news, believing that “**digital identity**” is key. The crucial themes are how to control the identity of information publishers in digital worlds like SNS and demonstrate their **trust**. 
 
-In the real world, we can (to a significant degree) judge whether someone is trustworthy based on whether they are a friend, an acquaintance, or a member of a certain organization. However, in the digital world of cyberspace, it is difficult to assess reliability because we often cannot identify who posted the information, and fake accounts even exist.
+In the real world, we can (to a significant degree) judge whether someone is trustworthy based on whether they are a friend, an acquaintance, or a member of a particular organization. However, in the digital world of cyberspace, it is difficult to assess reliability/trust because we often cannot identify who posted the information, and fake accounts even exist.
 
 ## Description of the current system
 
-The above theme is a huge issue. I, therefore, concentrate on the little specific project at this development. I developed a system that shows someone’s trust by showing their DID (Decentralized Identity) and VCs (verifiable Credentials). 
+The above theme is a huge issue. I, therefore, concentrate on the little specific project at this development. I developed a system that shows someone’s trust by showing their DID (Decentralized Identifier) and VCs (Verifiable Credentials). 
 
-The system also verifies that the DID owner is 20 years of age or older using ZKP.  Birthday recorded in driver’s license VC is a private input and Zk-proof the claim using Circom and SnarkJS (Plonk). By implementing this function, the system protects the privacy of VC.
+The system also verifies that the DID owner is 20 years of age or older using ZKP.  The birthday recorded in the driver’s license VC is a private input, and ZK will prove the claim using Circom and SnarkJS (Plonk). By implementing this function, the system protects the privacy of VC.
 
-The current development is a simple application, but I want to continue to develop the system that shows someone’s trust by showing DID and VCs, their Web2 activities and Web3 activities, and their social network.
+The current development is a simple application, but I want to continue developing the system that shows someone’s trust by showing DID and VCs, their Web2 and Web3 activities, and their social network.
 
 Thus, the developed system, **zkVC**, is a part of a digital identity system that shows trust with privacy protection.
+
 
 ## Development process of the system
 
@@ -59,7 +63,7 @@ According to the requirements, Human-Centered Design, and 9-panel UX storyboard,
 
 ![design of prototype system](./assets/FigmaPreview2.png) 
 
-As I used the Figma MPC server to write React frontend code, the React code is poorly written and needs rewriting, but I couldn't do it this time. The design of React frontend, however, perfectly replicates Figma’s design.
+Note: As I used the Figma MPC server to write React frontend code, the React code is poorly written and needs rewriting, but I couldn't do it this time. The design of React frontend, however, perfectly replicates Figma’s design.
 
 ## Specific Implementation of zkVC
 
