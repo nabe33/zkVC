@@ -245,30 +245,30 @@ snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
 
 #### Key Features
 
-##### 1. Decentralized Identity Management
+##### 1) Decentralized Identity Management
 - **DID Creation**: Generate Ethereum-based DIDs using EIP-1056 standard
 - **DID Resolution**: Resolve DIDs to their corresponding DID Documents
 - **Cross-platform Compatibility**: Works with any EIP-1056 compatible system
 
-##### 2. Verifiable Credential Processing
+##### 2) Verifiable Credential Processing
 - **VC Parsing**: Support for JSON-LD formatted Verifiable Credentials
 - **Schema Validation**: Validate VCs against expected schemas
 - **Credential Display**: User-friendly presentation of credential data
 - **Privacy Controls**: Selective disclosure of credential information
 
-##### 3. Zero-Knowledge Age Verification
+##### 3) Zero-Knowledge Age Verification
 - **Private Input Processing**: Birthday from VC remains confidential
 - **Public Proof Generation**: Proves age ≥ 20 without revealing exact age
 - **Circuit Security**: Cryptographically secure age verification
 - **On-chain Verification**: Optional smart contract verification (available but not required)
 
-##### 4. Trust Scoring System (not implemented in the current system)
+##### 4) Trust Scoring System (not implemented in the current system)
 - **Multi-dimensional Assessment**: Evaluate trust across multiple criteria
 - **Activity History**: Track and display user activity patterns
 - **Verification Levels**: Show different levels of identity verification
 - **Community Ratings**: Aggregate community-based trust scores
 
-##### 5. Social Network Visualization (not implemented in the current system)
+##### 5) Social Network Visualization (not implemented in the current system)
 - **Connection Mapping**: Visualize trusted connections and relationships
 - **Trust Propagation**: Leverage social proof for enhanced trust assessment
 - **Network Analysis**: Analyze connection quality and trustworthiness
