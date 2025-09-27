@@ -1,15 +1,14 @@
 # zkVC: digital identity system to show trust
 
-## Note
-This project was developed quickly for a hackathon, so the code has not been sufficiently rewritten or debugged. Improvements will be made in the future.
+Note: This project was developed quickly for a hackathon, so the code has not been sufficiently rewritten or debugged. Improvements will be made in the future.
 
-## Global Scope
+## 1. Background
 
 As written in [“Solving Web2 SNS Issues with Web3,”](https://note.com/nabe33/n/n2541b68c26ef) I, as a researcher, designer, and builder, am interested in resolving current SNS (Social Network Services) issues such as fake news, believing that “**digital identity**” is key. The crucial themes are how to control the identity of information publishers in digital worlds like SNS and demonstrate their **trust**. 
 
 In the real world, we can (to a significant degree) judge whether someone is trustworthy based on whether they are a friend, an acquaintance, or a member of a particular organization. However, in the digital world of cyberspace, it is difficult to assess reliability/trust because we often cannot identify who posted the information, and fake accounts even exist.
 
-## Description of the current system
+## 2. Description of the current system
 
 The above theme is a huge issue. I, therefore, concentrate on the little specific project at this development. I developed a system that shows someone’s trust by showing their DID (Decentralized Identifier) and VCs (Verifiable Credentials). 
 
@@ -19,10 +18,9 @@ The current development is a simple application, but I want to continue developi
 
 Thus, the developed system, **zkVC**, is a part of a digital identity system that shows trust with privacy protection.
 
+## 3. Development process of the system
 
-## Development process of the system
-
-### Requirements
+### 3.1 Requirements
 
 - Handling identity with decentralized SSI.
 - Supports n:1 relationships with SNS accounts through some method (e.g., embedding within SNS accounts, linking DIDs to SNS user profiles).
@@ -42,7 +40,7 @@ Technical requirements:
 - Tailwind CSS is used. (Alternatively, Material UI)
 - This time, the age information contained within the VC is concealed using zero-knowledge proofs, proving only that the individual is 20 years of age or older.
 
-### Human-Centered Development (UX Deisgn)
+### 3.2 Human-Centered Development (UX Deisgn)
 
 As a professional UX designer, I used a Human-Centered Design to set the following factors:
 
@@ -53,11 +51,11 @@ As a professional UX designer, I used a Human-Centered Design to set the followi
 - **User Needs**: Target users utilize this system when they wish to verify the reliability of social media information.
 - **Surface Design**: Use green as the theme color to convey trustworthiness. Employ a soft green to evoke approachability and ease of use. Text color is black. Use red as an accent color. Create a functional design.
 
-### 9-panel UX storyboard
+### 3.3 9-panel UX storyboard
 
 ![9-panel UX storyboard](./assets/9panelUXstoryboard.png)
 
-### Prototype design with Figma
+### 3.4 Prototype design with Figma
 
 According to the requirements, Human-Centered Design, and 9-panel UX storyboard, I used Figma to design the screen and some functions that must be implemented in the current development.
 
@@ -65,9 +63,9 @@ According to the requirements, Human-Centered Design, and 9-panel UX storyboard,
 
 Note: As I used the Figma MPC server to write React frontend code, the React code is poorly written and needs rewriting, but I couldn't do it this time. The design of React frontend, however, perfectly replicates Figma’s design.
 
-## Specific Implementation of zkVC
+## 4. Specific Implementation of zkVC
 
-### System Architecture
+### 4.1 System Architecture
 
 The zkVC system is built on a multi-layered architecture that combines Web2 and Web3 technologies to provide a comprehensive digital identity and trust verification platform:
 
@@ -100,7 +98,7 @@ The zkVC system is built on a multi-layered architecture that combines Web2 and 
 └─────────────────────────────────────────┘
 ```
 
-### Project Structure
+### 4.2 Project Structure
 
 ```
 zkp_vc/
@@ -137,7 +135,7 @@ zkp_vc/
 └── README.md
 ```
 
-### Quick Start
+### 4.3 Quick Start
 
 #### Prerequisites
 - Node.js (v18 or higher)
@@ -145,13 +143,13 @@ zkp_vc/
 - Git
 - circom and snarkjs
 
-#### 1. Clone and Setup
+#### 1) Clone and Setup
 ```bash
 git clone <repository-url>
 cd zkp_vc
 ```
 
-#### 2. API Server Setup
+#### 2) API Server Setup
 
 The API server provides functions of interacting with EIP1056 contract, treating local VC, and making a ZKP using Plonk. Web frontend uses these APIs.
 
@@ -162,7 +160,7 @@ npm run start:dev
 # Server runs on http://localhost:3001
 ```
 
-#### 3. Frontend Setup
+#### 3) Frontend Setup
 
 This is the zkVC system. It requires API sever running.
 
@@ -173,7 +171,7 @@ npm run dev
 # Frontend runs on http://localhost:5173
 ```
 
-#### 4. EIP-1056 Web Controller Setup
+#### 4) EIP-1056 Web Controller Setup
 
 This web-controller and the api server was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc) . It is a full-stack application implementing DID and VCs using EIP/ERC-1056.
 
@@ -186,7 +184,7 @@ npm run dev
 # It runs on http://localhost:3002
 ```
 
-#### 5. Environment Configuration
+#### 5) Environment Configuration
 Create `.env` files in the `api` and `app` directories:
 ```env
 # api/.env and app/.env
@@ -195,7 +193,7 @@ PRIVATE_KEY=0x...your-private-key
 CONTRACT_ADDRESS=0x...deployed-verifier-contract-address
 ```
 
-#### 6. Zero-Knowledge Circuit Setup
+#### 6) Zero-Knowledge Circuit Setup
 circom/circuit/ageCheck.circom is a circuit to zk proof that the driver is older than 20 with private input of birthday and public input of today's date.
 
 Output will be saved in a directory circom/work/ageCheck. verifyAge function of API sever uses this output to make ZKP.
@@ -212,12 +210,12 @@ snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
 # ... (complete trusted setup process)
 ```
 
-#### 7. Other Directories
+#### 7) Other Directories
 - contract directory provides a contract to verify driver's age with ZKP, using AgeVerifier.sol and Verifier.sol.
 - app directory verifies that a user is at least 20 years old using ZKP, without revealing their exact birthdate. You don't have to use this directory. If you want to make a ZKP onchain using Verifier.sol, you can use 'ageVerifier.sol'.
 - vc/vc.json is the VC the current system uses.
   
-### Technical Details
+### 4.4 Technical Details
 
 #### Core Technologies
 
