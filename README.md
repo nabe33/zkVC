@@ -146,7 +146,7 @@ zkp_vc/
 #### 1) Clone and Setup
 ```bash
 git clone <repository-url>
-cd zkp_vc
+cd zkVC
 ```
 
 #### 2) API Server Setup
