@@ -121,7 +121,7 @@ zkp_vc/
 │   │   └── components/       # React components
 │   └── package.json
 ├── contract/               # Smart Contracts
-│   ├── script/
+│   ├── src/
 │   │   └── Verifier.sol      # ZK proof verifier contract
 │   └── foundry.toml
 ├── circom/                 # Zero-Knowledge Circuits

@@ -2,8 +2,8 @@
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
-import "../script/Verifier.sol";
-import "../AgeVerifier.sol";
+import "../src/Verifier.sol";
+import "../src/AgeVerifier.sol";
 
 contract AgeVerifierTest is Test {
     PlonkVerifier public verifier;

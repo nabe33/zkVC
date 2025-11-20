@@ -37,7 +37,7 @@ localhost = "http://localhost:8545"
 
 # Etherscan configuration for contract verification
 [etherscan]
-sepolia = { key = "${ETHERSCAN_API_KEY}" }
+sepolia = { key = "${ETHERSCAN_API_KEY}", url = "https://api-sepolia.etherscan.io/api" }
 
 [profile.ci]
 fuzz = { runs = 10000 }
