@@ -9,6 +9,7 @@ template AgeAtLeast20_Unix(nBits) {
     signal input today;     // public : Unix time (seconds)
 
     // --- Range constraints (avoid field wraparound tricks) ---
+    // birtday must be older than Unix epoch date (1970-1-1)
     component bBits = Num2Bits(nBits);
     bBits.in <== birthday;
 
