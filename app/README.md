@@ -70,7 +70,11 @@ forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast --ve
 # npm run deploy:localhost
 ```
 
-8. Update CONTRACT_ADDRESS in .env with deployed address from deployment output
+8. Update CONTRACT_ADDRESS in @app/.env with deployed address from deployment output
+```
+source .env
+npm run verify (node ageVerification.js)
+```
 
 ## Usage
 
