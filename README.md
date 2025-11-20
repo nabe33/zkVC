@@ -215,7 +215,7 @@ snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
 
 This is the VC data.
 
-**Note:** Birthday must be older than Unix epoch date (1070-1-1)
+**Note:** Birthday must be older than Unix epoch date (1970-1-1)
 
 
 #### 8) Other Directories
