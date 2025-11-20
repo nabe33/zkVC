@@ -149,7 +149,16 @@ git clone <repository-url>
 cd zkVC
 ```
 
-#### 2) API Server Setup
+#### 2) Environment Configuration
+Create `.env` files in the `api` and `app` directories:
+```env
+# api/.env and app/.env
+RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
+PRIVATE_KEY=0x...your-private-key
+CONTRACT_ADDRESS=0x...deployed-verifier-contract-address
+```
+
+#### 3) API Server Setup
 
 The API server provides functions of interacting with EIP1056 contract, treating local VC, and making a ZKP using Plonk. Web frontend uses these APIs.
 
@@ -160,7 +169,7 @@ npm run start:dev
 # Server runs on http://localhost:3001
 ```
 
-#### 3) Frontend Setup
+#### 4) Frontend Setup
 
 This is the zkVC system. It requires API sever running.
 
@@ -171,7 +180,7 @@ npm run dev
 # Frontend runs on http://localhost:5173
 ```
 
-#### 4) EIP-1056 Web Controller Setup
+#### 5) EIP-1056 Web Controller Setup
 
 This web-controller and the api server was created based on [did-vc published on GitHub](https://github.com/ka-sasaki-sti/did-vc) . It is a full-stack application implementing DID and VCs using EIP/ERC-1056.
 
@@ -184,14 +193,6 @@ npm run dev
 # It runs on http://localhost:3002
 ```
 
-#### 5) Environment Configuration
-Create `.env` files in the `api` and `app` directories:
-```env
-# api/.env and app/.env
-RPC_URL=https://sepolia.infura.io/v3/YOUR_PROJECT_ID
-PRIVATE_KEY=0x...your-private-key
-CONTRACT_ADDRESS=0x...deployed-verifier-contract-address
-```
 
 #### 6) Zero-Knowledge Circuit Setup
 circom/circuit/ageCheck.circom is a circuit to zk proof that the driver is older than 20 with private input of birthday and public input of today's date.
@@ -210,7 +211,13 @@ snarkjs powersoftau new bn128 12 work/pot12_0000.ptau -v
 # ... (complete trusted setup process)
 ```
 
-#### 7) Other Directories
+#### 7) @vc/VC.json
+
+This is the VC data.
+**Note:** Birthday must be older than Unix epoch date (1070-1-1)
+
+
+#### 8) Other Directories
 - contract directory provides a contract to verify driver's age with ZKP, using AgeVerifier.sol and Verifier.sol.
 - app directory verifies that a user is at least 20 years old using ZKP, without revealing their exact birthdate. You don't have to use this directory. If you want to make a ZKP onchain using Verifier.sol, you can use 'ageVerifier.sol'.
 - vc/vc.json is the VC the current system uses.

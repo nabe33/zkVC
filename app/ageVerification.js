@@ -14,6 +14,7 @@ class AgeVerificationSystem {
     }
 
     // VCからbirthdateを取得してUnixTimeに変換
+    // 誕生日はUNIX epock time(1970-1-1)以後に限る！
     parseBirthDateFromVC(vcPath) {
         try {
             const vcData = JSON.parse(fs.readFileSync(vcPath, 'utf8'));
