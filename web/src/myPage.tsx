@@ -6,6 +6,7 @@ import PageHeader from './components/PageHeader'
 import DIDBox from './components/DIDBox'
 import VCBox from './components/VCBox'
 import TrustBox from './components/TrustBox'
+import ActivitiesBox from './components/ActivitiesBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
@@ -34,34 +35,7 @@ function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
   );
 }
 
-// ActivitiesBox and SocialNetworkBox are placeholders for future features
-function ActivitiesBox() {
-  return (
-    <div className="relative size-full" data-name="Activities Box" data-node-id="78:270">
-      <div className="box-border content-stretch flex flex-col gap-[15px] items-start justify-center p-[10px] relative size-full">
-        <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" data-node-id="11:85">
-          <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="11:86" style={{ fontVariationSettings: "'wdth' 100" }}>
-            <p className="leading-[36px] whitespace-pre">Activities (NFTs, SBTs, ....):</p>
-          </div>
-          <div className="h-[41px] shrink-0 w-[210px]" data-node-id="11:87" />
-        </div>
-        <div className="content-stretch flex gap-2 items-center justify-start overflow-clip relative shrink-0 w-full" data-name="Frame content" data-node-id="11:88">
-          <div className="relative shrink-0 size-10" data-name="3D Avatars / 12" data-node-id="11:89">
-            <div className="absolute bg-center bg-cover bg-no-repeat inset-0" data-name="Avatars / 3d_avatar_12" id="node-I11_89-52767_23897" style={{ backgroundImage: `url('${avatar12Img}')` }} />
-          </div>
-          <div className="relative shrink-0 size-10" data-name="3D Avatars / 10" data-node-id="11:91">
-            <div className="absolute bg-center bg-cover bg-no-repeat inset-0" data-name="Avatars / 3d_avatar_10" id="node-I11_91-52767_23895" style={{ backgroundImage: `url('${avatar10Img}')` }} />
-          </div>
-          <div className="relative shrink-0 size-10" data-name="3D Avatars / 1" data-node-id="11:92">
-            <div className="absolute bg-center bg-cover bg-no-repeat inset-0" data-name="Avatars / 3d_avatar_1" id="node-I11_92-52767_23886" style={{ backgroundImage: `url('${avatar1Img}')` }} />
-          </div>
-        </div>
-      </div>
-      <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
-    </div>
-  );
-}
-
+// SocialNetworkBox is placeholder for future features
 function SocialNetworkBox() {
   return (
     <div className="relative size-full" data-name="SocialNetwork Box" data-node-id="78:306">
@@ -155,7 +129,7 @@ export default function MyPage() {
       </div>
       {/* Activities Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="Activities Box" data-node-id="78:271">
-        <ActivitiesBox />
+        <ActivitiesBox avatarImages={[avatar12Img, avatar10Img, avatar1Img]} />
       </div>
       {/* SocialNetwork Box */}
       <div className="bg-[#cfffd7] h-[134px] relative shrink-0 w-[402px]" data-name="SocialNetwork Box" data-node-id="78:315">

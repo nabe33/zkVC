@@ -5,27 +5,12 @@ import PageHeader from './components/PageHeader'
 import DIDBox from './components/DIDBox'
 import VCBox from './components/VCBox'
 import TrustBox from './components/TrustBox'
+import ActivitiesBox from './components/ActivitiesBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import settingsIconImg from './assets/settings-icon.svg';
-
-function Component3DAvatars12() {
-  return (
-    <div className="relative size-full" data-name="3D Avatars / 12" data-node-id="6:270">
-      <div className="absolute bg-center bg-cover bg-no-repeat inset-0" data-name="Avatars / 3d_avatar_12" data-node-id="6:271" style={{ backgroundImage: `url('${avatar12Img}')` }} />
-    </div>
-  );
-}
-
-function Component3DAvatars10() {
-  return (
-    <div className="relative size-full" data-name="3D Avatars / 10" data-node-id="6:262">
-      <div className="absolute bg-center bg-cover bg-no-repeat inset-0" data-name="Avatars / 3d_avatar_10" data-node-id="6:263" style={{ backgroundImage: `url('${avatar10Img}')` }} />
-    </div>
-  );
-}
 
 // SocialNetwork Box component
 function SocialNetworkBox() {
@@ -114,23 +99,7 @@ export default function TopPage() {
       </div>
       {/* Activities Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="Activities Box" data-node-id="78:295">
-        <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
-          <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_295-11_85">
-            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" id="node-I78_295-11_86" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px] whitespace-pre">Activities (NFTs, SBTs, ....):</p>
-            </div>
-            <div className="h-[41px] shrink-0 w-[210px]" id="node-I78_295-11_87" />
-          </div>
-          <div className="content-stretch flex gap-2 items-center justify-start overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_295-11_88">
-            <div className="relative shrink-0 size-10" data-name="3D Avatars / 12" id="node-I78_295-11_89">
-              <Component3DAvatars12 />
-            </div>
-            <div className="relative shrink-0 size-10" data-name="3D Avatars / 10" id="node-I78_295-11_91">
-              <Component3DAvatars10 />
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
+        <ActivitiesBox avatarImages={[avatar12Img, avatar10Img]} />
       </div>
       {/* SocialNetwork Box */}
       <div className="bg-[#cfffd7] h-[134px] relative shrink-0 w-[402px]" data-name="SocialNetwork Box" data-node-id="78:307">
