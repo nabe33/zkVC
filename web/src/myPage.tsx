@@ -4,6 +4,7 @@ import TopPage from './topPage'
 import StatusBarIPhone from './components/StatusBarIPhone'
 import PageHeader from './components/PageHeader'
 import DIDBox from './components/DIDBox'
+import VCBox from './components/VCBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
@@ -133,25 +134,14 @@ export default function MyPage() {
       </div>
       {/* VC Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:225">
-        <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
-          <div className="content-stretch flex font-['Roboto:Regular',_sans-serif] font-normal gap-[15px] items-center justify-start leading-[0] relative shrink-0 text-black text-nowrap w-full" data-name="Frame header" id="node-I78_225-6_247">
-            <div className="flex flex-col justify-center relative shrink-0 text-[28px]" id="node-I78_225-6_248" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px] text-nowrap whitespace-pre">VC NFTs:</p>
-            </div>
-            <div className="flex flex-col justify-center relative shrink-0 text-[22px] text-center" id="node-I78_225-18_181" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[28px] text-nowrap whitespace-pre">{`click to view&verify`}</p>
-            </div>
-          </div>
-          <div className="content-stretch flex gap-2 items-center justify-start overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_225-6_252">
-            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-2 1" id="node-I78_225-7_200" style={{ backgroundImage: `url('${driversLicenseLogoImg}')` }} />
-            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11 cursor-pointer" data-name="20250905DigitalIdentityLogo1-4 1" id="node-I78_225-31_306" style={{ backgroundImage: `url('${tokyoUniversityLogoImg}')` }} onClick={() => setShowVerifyVC(true)} />
-            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-3 1" id="node-I78_225-78_197" style={{ backgroundImage: `url('${companyLogoImg}')` }} />
-            <div className="bg-gray-300 box-border content-stretch cursor-not-allowed flex flex-col h-11 items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 w-[83px]" data-name="Add Button" id="node-I78_225-78_215">
-              <ButtonDark labelText="Add" style="Filled" state="disabled" showIcon="False" />
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
+        <VCBox
+          icons={[
+            { image: driversLicenseLogoImg },
+            { image: tokyoUniversityLogoImg, onClick: () => setShowVerifyVC(true) },
+            { image: companyLogoImg }
+          ]}
+          showAddButton={true}
+        />
       </div>
       {/* Trust Box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[402px]" data-name="Trust Box" data-node-id="78:259">
