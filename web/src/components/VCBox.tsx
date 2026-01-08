@@ -1,6 +1,3 @@
-import driversLicenseLogoImg from '../assets/drivers-license-logo.png';
-import tokyoUniversityLogoImg from '../assets/tokyo-university-logo.png';
-
 interface ButtonDarkProps {
   labelText?: string;
 }
@@ -23,15 +20,12 @@ interface VCIcon {
 }
 
 interface VCBoxProps {
-  icons?: VCIcon[];
+  icons: VCIcon[];
   showAddButton?: boolean;
 }
 
 export default function VCBox({
-  icons = [
-    { image: driversLicenseLogoImg },
-    { image: tokyoUniversityLogoImg }
-  ],
+  icons,
   showAddButton = false
 }: VCBoxProps) {
   return (

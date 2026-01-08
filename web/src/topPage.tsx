@@ -6,6 +6,8 @@ import DIDBox from './components/DIDBox'
 import VCBox from './components/VCBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
+import driversLicenseLogoImg from './assets/drivers-license-logo.png';
+import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import settingsIconImg from './assets/settings-icon.svg';
 
 // Trust Box component
@@ -130,7 +132,12 @@ export default function TopPage() {
       </div>
       {/* VC Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:188">
-        <VCBox />
+        <VCBox
+          icons={[
+            { image: driversLicenseLogoImg },
+            { image: tokyoUniversityLogoImg }
+          ]}
+        />
       </div>
       {/* Trust Box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[402px]" data-name="Trust Box" data-node-id="78:248">
