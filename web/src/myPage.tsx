@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import VerifyVC from './verifyVC'
 import TopPage from './topPage'
 import StatusBarIPhone from './components/StatusBarIPhone'
 import PageHeader from './components/PageHeader'
+import DIDBox from './components/DIDBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
@@ -111,48 +112,6 @@ function IconButton({ icon = null }: IconButtonProps) {
 export default function MyPage() {
   const [showVerifyVC, setShowVerifyVC] = useState(false);
   const [showTopPage, setShowTopPage] = useState(false);
-  const [currentDID, setCurrentDID] = useState<string>('Loading...');
-  const [isLoadingDID, setIsLoadingDID] = useState(true);
-  const [isResolving, setIsResolving] = useState(false);
-  const [resolveStatus, setResolveStatus] = useState<string | null>(null);
-  const [isResolveError, setIsResolveError] = useState(false);
-
-  useEffect(() => {
-    const fetchDID = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/getCurrentDID');
-        const data = await response.json();
-        setCurrentDID(data.did || 'DID not found');
-      } catch (error) {
-        console.error('Error fetching DID:', error);
-        setCurrentDID('Error loading DID');
-      } finally {
-        setIsLoadingDID(false);
-      }
-    };
-
-    fetchDID();
-  }, []);
-
-  const handleResolveDID = async () => {
-    setIsResolving(true);
-    setResolveStatus(null);
-    try {
-      const response = await fetch('http://localhost:3001/resolveDID');
-      if (response.ok) {
-        setResolveStatus('Resolve Success');
-        setIsResolveError(false);
-      } else {
-        throw new Error('Resolve failed');
-      }
-    } catch (error) {
-      console.error('Error resolving DID:', error);
-      setResolveStatus('Resolve Failed');
-      setIsResolveError(true);
-    } finally {
-      setIsResolving(false);
-    }
-  };
 
   if (showVerifyVC) {
     return <VerifyVC />;
@@ -170,28 +129,7 @@ export default function MyPage() {
       <PageHeader title="My Trust" onLogoClick={() => setShowTopPage(true)} />
       {/* MyDID Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:163">
-        <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
-          <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_163-6_237">
-            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" id="node-I78_163-5_1121" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px] whitespace-pre">My DID:</p>
-            </div>
-            <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" id="node-I78_163-6_235" />
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" id="node-I78_163-6_204" onClick={handleResolveDID}>
-              <ButtonDark labelText={isResolving ? "Resolving..." : "Resolve"} style="Filled" state="enabled" showIcon="False" />
-            </div>
-          </div>
-          <div className="flex-1 overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_163-6_236">
-            <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] text-[14px] text-black text-center tracking-[0.1px] px-2 w-full" id="node-I78_163-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="break-all w-full mb-1">{isLoadingDID ? 'Loading...' : currentDID}</p>
-              {resolveStatus && (
-                <p className={`text-sm font-medium ${isResolveError ? 'text-red-600' : 'text-green-600'}`}>
-                  {resolveStatus}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
+        <DIDBox label="My DID:" buttonVariant="filled" />
       </div>
       {/* VC Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:225">

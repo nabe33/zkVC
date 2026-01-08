@@ -3,31 +3,12 @@ import TopPage from './topPage';
 import MyPage from './myPage';
 import StatusBarIPhone from './components/StatusBarIPhone';
 import PageHeader from './components/PageHeader';
+import DIDBox from './components/DIDBox';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import companyLogoImg from './assets/company-logo.png';
 import settingsIconImg from './assets/settings-icon.svg';
 import homeIconImg from './assets/home-icon.svg';
-
-interface ButtonDarkProps {
-  icon?: React.ReactNode | null;
-  labelText?: string;
-  style?: "Filled" | "Outlined" | "Text" | "Elevated" | "Tonal";
-  state?: "enabled" | "hovered" | "focused" | "pressed" | "disabled";
-  showIcon?: "False" | "True";
-}
-
-function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
-  return (
-    <div className="content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] size-full" data-name="Style=Filled, State=enabled, Show Icon=False" data-node-id="6:78">
-      <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" data-node-id="6:202">
-        <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[0] relative shrink-0 text-[#381e72] text-[14px] text-center text-nowrap tracking-[0.1px]" data-node-id="6:203" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[20px] whitespace-pre">{labelText}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 interface IconButtonProps {
   icon?: React.ReactNode | null;
@@ -56,11 +37,6 @@ function IconButton({ icon = null }: IconButtonProps) {
 export default function VerifyVc1() {
   const [showTopPage, setShowTopPage] = useState(false);
   const [showMyPage, setShowMyPage] = useState(false);
-  const [currentDID, setCurrentDID] = useState<string>('Loading...');
-  const [isLoadingDID, setIsLoadingDID] = useState(true);
-  const [isResolving, setIsResolving] = useState(false);
-  const [resolveStatus, setResolveStatus] = useState<string | null>(null);
-  const [isResolveError, setIsResolveError] = useState(false);
   const [vcData, setVcData] = useState<any>(null);
   const [isLoadingVC, setIsLoadingVC] = useState(true);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -69,23 +45,6 @@ export default function VerifyVc1() {
   const [isVerifyingAge, setIsVerifyingAge] = useState(false);
   const [ageVerifyStatus, setAgeVerifyStatus] = useState<string | null>(null);
   const [isAgeVerifyError, setIsAgeVerifyError] = useState(false);
-
-  useEffect(() => {
-    const fetchDID = async () => {
-      try {
-        const response = await fetch('http://localhost:3001/getCurrentDID');
-        const data = await response.json();
-        setCurrentDID(data.did || 'DID not found');
-      } catch (error) {
-        console.error('Error fetching DID:', error);
-        setCurrentDID('Error loading DID');
-      } finally {
-        setIsLoadingDID(false);
-      }
-    };
-
-    fetchDID();
-  }, []);
 
   useEffect(() => {
     const fetchVC = async () => {
@@ -126,26 +85,6 @@ export default function VerifyVc1() {
 
     fetchVC();
   }, []);
-
-  const handleResolveDID = async () => {
-    setIsResolving(true);
-    setResolveStatus(null);
-    try {
-      const response = await fetch('http://localhost:3001/resolveDID');
-      if (response.ok) {
-        setResolveStatus('Resolve Success');
-        setIsResolveError(false);
-      } else {
-        throw new Error('Resolve failed');
-      }
-    } catch (error) {
-      console.error('Error resolving DID:', error);
-      setResolveStatus('Resolve Failed');
-      setIsResolveError(true);
-    } finally {
-      setIsResolving(false);
-    }
-  };
 
   const handleVerifyVC = async () => {
     if (!vcData) {
@@ -237,28 +176,7 @@ export default function VerifyVc1() {
       <PageHeader title={["Verifiable", "Credential"]} onLogoClick={() => setShowTopPage(true)} />
       {/* DID box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:175">
-        <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">
-          <div className="content-stretch flex gap-[15px] items-center justify-start relative shrink-0 w-full" data-name="Frame header" id="node-I78_175-6_237">
-            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" id="node-I78_175-5_1121" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px] whitespace-pre">DID:</p>
-            </div>
-            <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" id="node-I78_175-6_235" />
-            <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Check Button" id="node-I78_175-6_204" onClick={handleResolveDID}>
-              <ButtonDark labelText={isResolving ? "Resolving..." : "Resolve"} style="Filled" state="enabled" showIcon="False" />
-            </div>
-          </div>
-          <div className="flex-1 overflow-clip relative shrink-0 w-full" data-name="Frame content" id="node-I78_175-6_236">
-            <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[20px] text-[14px] text-black text-center tracking-[0.1px] px-2 w-full" id="node-I78_175-6_245" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="break-all w-full mb-1">{isLoadingDID ? 'Loading...' : currentDID}</p>
-              {resolveStatus && (
-                <p className={`text-sm font-medium ${isResolveError ? 'text-red-600' : 'text-green-600'}`}>
-                  {resolveStatus}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
+        <DIDBox buttonVariant="filled" />
       </div>
       {/* VC box */}
       <div className="bg-[#cfffd7] min-h-[200px] relative w-[400px]" data-name="VCFrame" data-node-id="27:210">
