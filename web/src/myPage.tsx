@@ -5,6 +5,7 @@ import StatusBarIPhone from './components/StatusBarIPhone'
 import PageHeader from './components/PageHeader'
 import DIDBox from './components/DIDBox'
 import VCBox from './components/VCBox'
+import TrustBox from './components/TrustBox'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
@@ -145,35 +146,12 @@ export default function MyPage() {
       </div>
       {/* Trust Box */}
       <div className="bg-[#cfffd7] relative shrink-0 w-[402px]" data-name="Trust Box" data-node-id="78:259">
-        <div className="box-border content-stretch flex items-center justify-between overflow-clip px-2 py-0 relative w-[402px]">
-          <div className="basis-0 box-border content-stretch flex flex-col gap-[15px] grow h-[126px] items-start justify-start min-h-px min-w-px px-[5px] py-2.5 relative shrink-0" data-name="Score Frame" id="node-I78_259-7_44">
-            <div aria-hidden="true" className="absolute border border-[#4d4a4a] border-solid inset-0 pointer-events-none" />
-            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" id="node-I78_259-7_45" style={{ fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px] whitespace-pre">Trust:</p>
-            </div>
-            <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] min-w-full relative shrink-0 text-[#fc0707] text-[28px] text-center" id="node-I78_259-7_50" style={{ width: "min-content", fontVariationSettings: "'wdth' 100" }}>
-              <p className="leading-[36px]">88%</p>
-            </div>
-          </div>
-          <div className="box-border content-stretch flex flex-col gap-1 items-center justify-start overflow-clip p-[10px] relative shrink-0 w-[300px]" data-name="Score Details" id="node-I78_259-7_51">
-            <div className="h-7 left-[-1px] overflow-clip w-[300px]" id="node-I78_259-7_177">
-              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_180" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[22px] whitespace-pre">{`Activity Score: 86 `}</p>
-              </div>
-            </div>
-            <div className="h-7 left-[-1px] overflow-clip w-[300px]" id="node-I78_259-7_178">
-              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_181" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[22px] whitespace-pre">{`Certification level:  90`}</p>
-              </div>
-            </div>
-            <div className="h-7 left-0 overflow-clip w-[300px]" id="node-I78_259-7_179">
-              <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] left-4 text-[18px] text-black text-nowrap" id="node-I78_259-7_182" style={{ fontVariationSettings: "'wdth' 100" }}>
-                <p className="leading-[22px] whitespace-pre">Community Evaluation: 88</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div aria-hidden="true" className="absolute border border-[#13a229] border-solid inset-0 pointer-events-none" />
+        <TrustBox
+          trustScore={88}
+          activityScore={86}
+          certificationLevel={90}
+          communityEvaluation={88}
+        />
       </div>
       {/* Activities Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="Activities Box" data-node-id="78:271">
