@@ -9,15 +9,11 @@ import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import messageQuestionImg from './assets/message-question.svg';
 import settingsIconImg from './assets/settings-icon.svg';
 
-interface MessageQuestionProps {
-  style?: "bold" | "broken" | "bulk" | "linear" | "outline" | "twotone";
-}
-
-function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
+function MessageQuestion() {
   return (
     <div className="relative size-full" data-name="Style=linear" data-node-id="2:1614">
       <div className="absolute contents inset-0" data-name="vuesax/linear/message-question" data-node-id="2:1620">
-        <img alt className="block max-w-none size-full" src={messageQuestionImg} />
+        <img alt="" className="block max-w-none size-full" src={messageQuestionImg} />
       </div>
     </div>
   );
@@ -192,7 +188,7 @@ interface IconButtonProps {
   state?: "enabled" | "hovered" | "focused" | "pressed" | "disabled";
 }
 
-function IconButton({ icon = null, style = "outlined", state = "disabled" }: IconButtonProps) {
+function IconButton({ icon = null }: IconButtonProps) {
   return (
     <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative size-full" data-name="Style=standard, State=enabled" data-node-id="7:88">
       <div className="content-stretch flex gap-2.5 items-center justify-center overflow-clip relative rounded-[100px] shrink-0" data-name="container" data-node-id="7:146">
@@ -200,7 +196,7 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
           {icon || (
             <div className="relative shrink-0 size-6" data-name="Icon" data-node-id="7:148">
               <div className="absolute inset-[7.33%_8.31%_7.29%_8.33%]" data-name="icon" id="node-I7_148-51127_4769">
-                <img alt className="block max-w-none size-full" src={settingsIconImg} />
+                <img alt="" className="block max-w-none size-full" src={settingsIconImg} />
               </div>
             </div>
           )}
@@ -289,7 +285,7 @@ export default function TopPage() {
         </div>
         <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[28px] relative shrink-0 text-[#080808] text-[22px] text-center text-nowrap whitespace-pre" id="node-I78_337-78_350" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="mb-0">digital identity</p>
-          <p className>management</p>
+          <p className="">management</p>
         </div>
         <div className="h-12 overflow-clip relative shrink-0 w-[123px]" data-name="LoginFrame" id="node-I78_337-11_100">
           <div className="absolute bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center left-[13px] overflow-clip rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] top-px" data-name="Login Button" id="node-I78_337-11_101" onClick={() => setShowMyPage(true)}>

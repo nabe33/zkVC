@@ -10,15 +10,11 @@ import messageQuestionImg from './assets/message-question.svg';
 import settingsIconImg from './assets/settings-icon.svg';
 import homeIconImg from './assets/home-icon.svg';
 
-interface MessageQuestionProps {
-  style?: "bold" | "broken" | "bulk" | "linear" | "outline" | "twotone";
-}
-
-function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
+function MessageQuestion() {
   return (
     <div className="relative size-full" data-name="Style=linear" data-node-id="2:1614">
       <div className="absolute contents inset-0" data-name="vuesax/linear/message-question" data-node-id="2:1620">
-        <img alt className="block max-w-none size-full" src={messageQuestionImg} />
+        <img alt="" className="block max-w-none size-full" src={messageQuestionImg} />
       </div>
     </div>
   );
@@ -32,7 +28,7 @@ interface ButtonDarkProps {
   showIcon?: "False" | "True";
 }
 
-function ButtonDark({ icon = null, labelText = "Label", style = "Tonal", state = "disabled", showIcon = "True" }: ButtonDarkProps) {
+function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
   return (
     <div className="content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] size-full" data-name="Style=Filled, State=enabled, Show Icon=False" data-node-id="6:78">
       <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" data-node-id="6:202">
@@ -50,7 +46,7 @@ interface IconButtonProps {
   state?: "enabled" | "hovered" | "focused" | "pressed" | "disabled";
 }
 
-function IconButton({ icon = null, style = "outlined", state = "disabled" }: IconButtonProps) {
+function IconButton({ icon = null }: IconButtonProps) {
   return (
     <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative size-full" data-name="Style=standard, State=enabled" data-node-id="7:88">
       <div className="content-stretch flex gap-2.5 items-center justify-center overflow-clip relative rounded-[100px] shrink-0" data-name="container" data-node-id="7:146">
@@ -58,7 +54,7 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
           {icon || (
             <div className="relative shrink-0 size-6" data-name="Icon" data-node-id="7:148">
               <div className="absolute inset-[7.33%_8.31%_7.29%_8.33%]" data-name="icon" id="node-I7_148-51127_4769">
-                <img alt className="block max-w-none size-full" src={settingsIconImg} />
+                <img alt="" className="block max-w-none size-full" src={settingsIconImg} />
               </div>
             </div>
           )}
@@ -254,7 +250,7 @@ export default function VerifyVc1() {
         <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_139-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowTopPage(true)} />
         <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[40px] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I78_139-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
           <p className="mb-0">Verifiable</p>
-          <p className>Credential</p>
+          <p className="">Credential</p>
         </div>
         <div className="relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 size-9" data-name="message-question" id="node-I78_139-2_1656">
           <MessageQuestion />
@@ -389,7 +385,7 @@ export default function VerifyVc1() {
           <div className="box-border content-stretch flex gap-2 items-center justify-center pl-4 pr-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I78_518-11_144-53923_27801">
             <div className="relative shrink-0 size-[18px]" data-name="icon" id="node-I78_518-11_144-53923_27802">
               <div className="absolute contents inset-0" data-name="vuesax/linear/house" id="node-I78_518-11_144-53923_27802-1_42591">
-                <img alt className="block max-w-none size-full" src={homeIconImg} />
+                <img alt="" className="block max-w-none size-full" src={homeIconImg} />
               </div>
             </div>
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I78_518-11_144-53923_27803" style={{ fontVariationSettings: "'wdth' 100" }}>

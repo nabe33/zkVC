@@ -16,11 +16,11 @@ interface MessageQuestionProps {
   style?: "bold" | "broken" | "bulk" | "linear" | "outline" | "twotone";
 }
 
-function MessageQuestion({ style = "linear" }: MessageQuestionProps) {
+function MessageQuestion({}: MessageQuestionProps) {
   return (
     <div className="relative size-full" data-name="Style=linear" data-node-id="2:1614">
       <div className="absolute contents inset-0" data-name="vuesax/linear/message-question" data-node-id="2:1620">
-        <img alt className="block max-w-none size-full" src={messageQuestionImg} />
+        <img alt="" className="block max-w-none size-full" src={messageQuestionImg} />
       </div>
     </div>
   );
@@ -34,7 +34,7 @@ interface ButtonDarkProps {
   showIcon?: "False" | "True";
 }
 
-function ButtonDark({ icon = null, labelText = "Label", style = "Tonal", state = "disabled", showIcon = "True" }: ButtonDarkProps) {
+function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
   return (
     <div className="content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] size-full" data-name="Style=Filled, State=enabled, Show Icon=False" data-node-id="6:78">
       <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" data-node-id="6:202">
@@ -105,7 +105,7 @@ interface IconButtonProps {
   state?: "enabled" | "hovered" | "focused" | "pressed" | "disabled";
 }
 
-function IconButton({ icon = null, style = "outlined", state = "disabled" }: IconButtonProps) {
+function IconButton({ icon = null }: IconButtonProps) {
   return (
     <div className="content-stretch cursor-pointer flex flex-col gap-2.5 items-center justify-center relative size-full" data-name="Style=standard, State=enabled" data-node-id="7:88">
       <div className="content-stretch flex gap-2.5 items-center justify-center overflow-clip relative rounded-[100px] shrink-0" data-name="container" data-node-id="7:146">
@@ -113,7 +113,7 @@ function IconButton({ icon = null, style = "outlined", state = "disabled" }: Ico
           {icon || (
             <div className="relative shrink-0 size-6" data-name="Icon" data-node-id="7:148">
               <div className="absolute inset-[7.33%_8.31%_7.29%_8.33%]" data-name="icon" id="node-I7_148-51127_4769">
-                <img alt className="block max-w-none size-full" src={settingsIconImg} />
+                <img alt="" className="block max-w-none size-full" src={settingsIconImg} />
               </div>
             </div>
           )}
