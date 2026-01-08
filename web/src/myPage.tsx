@@ -136,8 +136,8 @@ export default function MyPage() {
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:225">
         <VCBox
           icons={[
-            { image: driversLicenseLogoImg },
-            { image: tokyoUniversityLogoImg, onClick: () => setShowVerifyVC(true) },
+            { image: tokyoUniversityLogoImg },
+            { image: driversLicenseLogoImg, onClick: () => setShowVerifyVC(true) },
             { image: companyLogoImg }
           ]}
           showAddButton={true}

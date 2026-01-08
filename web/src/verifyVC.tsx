@@ -185,7 +185,7 @@ export default function VerifyVc1() {
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="27:212" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[36px] whitespace-pre">VC:</p>
             </div>
-            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-4 2" data-node-id="36:765" style={{ backgroundImage: `url('${tokyoUniversityLogoImg}')` }} />
+            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-4 2" data-node-id="36:765" style={{ backgroundImage: `url('${driversLicenseLogoImg}')` }} />
             <div className="bg-white box-border content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0" data-name="Verify Button" data-node-id="27:207" onClick={handleVerifyVC}>
               <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" id="node-I27_207-53923_27817">
                 <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[#381e72] text-[16px] text-center text-nowrap tracking-[0.5px]" id="node-I27_207-53923_27818" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -266,7 +266,7 @@ export default function VerifyVc1() {
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="42:851" style={{ fontVariationSettings: "'wdth' 100" }}>
               <p className="leading-[36px] whitespace-pre">other VCs:</p>
             </div>
-            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-2 2" data-node-id="42:852" style={{ backgroundImage: `url('${driversLicenseLogoImg}')` }} />
+            <div className="bg-center bg-cover bg-no-repeat shrink-0 size-11" data-name="20250905DigitalIdentityLogo1-2 2" data-node-id="42:852" style={{ backgroundImage: `url('${tokyoUniversityLogoImg}')` }} />
             <div className="bg-center bg-cover bg-no-repeat shrink-0 size-10" data-name="20250905DigitalIdentityLogo1-3 1" data-node-id="42:853" style={{ backgroundImage: `url('${companyLogoImg}')` }} />
             <div className="basis-0 grow h-[41px] min-h-px min-w-px shrink-0" data-node-id="42:854" />
           </div>

@@ -134,8 +134,8 @@ export default function TopPage() {
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="VC Box" data-node-id="78:188">
         <VCBox
           icons={[
-            { image: driversLicenseLogoImg },
-            { image: tokyoUniversityLogoImg }
+            { image: tokyoUniversityLogoImg },
+            { image: driversLicenseLogoImg }
           ]}
         />
       </div>
