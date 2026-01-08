@@ -155,7 +155,7 @@ export default function VerifyVc1() {
         <DIDBox buttonVariant="filled" />
       </div>
       {/* VC box */}
-      <div className="bg-[#cfffd7] min-h-[200px] relative w-[400px]" data-name="VCFrame" data-node-id="27:210">
+      <div className="bg-[#cfffd7] h-[280px] relative shrink-0 w-[400px]" data-name="VCFrame" data-node-id="27:210">
         <div className="box-border content-stretch flex flex-col gap-[15px] items-center justify-start p-[10px] relative w-[400px]">
           <div className="content-stretch flex gap-2 items-center justify-start relative shrink-0 w-full" data-name="VC header" data-node-id="27:211">
             <div className="flex flex-col font-['Roboto:Regular',_sans-serif] font-normal justify-center leading-[0] relative shrink-0 text-[28px] text-black text-nowrap" data-node-id="27:212" style={{ fontVariationSettings: "'wdth' 100" }}>
