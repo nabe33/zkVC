@@ -2,29 +2,14 @@ import { useState, useEffect } from 'react'
 import VerifyVC from './verifyVC'
 import TopPage from './topPage'
 import StatusBarIPhone from './components/StatusBarIPhone'
+import PageHeader from './components/PageHeader'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
-import logoImg from './assets/logo.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import companyLogoImg from './assets/company-logo.png';
-import messageQuestionImg from './assets/message-question.svg';
 import settingsIconImg from './assets/settings-icon.svg';
-
-interface MessageQuestionProps {
-  style?: "bold" | "broken" | "bulk" | "linear" | "outline" | "twotone";
-}
-
-function MessageQuestion({}: MessageQuestionProps) {
-  return (
-    <div className="relative size-full" data-name="Style=linear" data-node-id="2:1614">
-      <div className="absolute contents inset-0" data-name="vuesax/linear/message-question" data-node-id="2:1620">
-        <img alt="" className="block max-w-none size-full" src={messageQuestionImg} />
-      </div>
-    </div>
-  );
-}
 
 interface ButtonDarkProps {
   icon?: React.ReactNode | null;
@@ -182,16 +167,7 @@ export default function MyPage() {
       <div className="box-border content-stretch flex gap-[154px] items-center justify-center pb-[19px] pt-[21px] px-4 relative shrink-0 w-[402px]" data-name="Status bar - iPhone" data-node-id="11:51">
         <StatusBarIPhone />
       </div>
-      <div className="box-border content-stretch flex gap-5 items-center justify-start px-2.5 py-0 relative shrink-0 w-[402px]" data-name="Header Box" data-node-id="78:129">
-        <div aria-hidden="true" className="absolute border border-[#27c840] border-solid inset-0 pointer-events-none" />
-        <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I78_129-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowTopPage(true)} />
-        <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[0] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I78_129-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[40px]">My Trust</p>
-        </div>
-        <div className="relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 size-9" data-name="message-question" id="node-I78_129-2_1656">
-          <MessageQuestion />
-        </div>
-      </div>
+      <PageHeader title="My Trust" onLogoClick={() => setShowTopPage(true)} />
       {/* MyDID Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:163">
         <div className="box-border content-stretch flex flex-col gap-[15px] h-[120px] items-start justify-center overflow-clip p-[10px] relative w-[400px]">

@@ -1,23 +1,12 @@
 import { useState, useEffect } from 'react'
 import MyPage from './myPage'
 import StatusBarIPhone from './components/StatusBarIPhone'
+import PageHeader from './components/PageHeader'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
-import logoImg from './assets/logo.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
-import messageQuestionImg from './assets/message-question.svg';
 import settingsIconImg from './assets/settings-icon.svg';
-
-function MessageQuestion() {
-  return (
-    <div className="relative size-full" data-name="Style=linear" data-node-id="2:1614">
-      <div className="absolute contents inset-0" data-name="vuesax/linear/message-question" data-node-id="2:1620">
-        <img alt="" className="block max-w-none size-full" src={messageQuestionImg} />
-      </div>
-    </div>
-  );
-}
 
 // DID Box component with fetch and resolve functionality
 function DidBox() {
@@ -218,16 +207,7 @@ export default function TopPage() {
       <div className="box-border content-stretch flex gap-[154px] items-center justify-center pb-[19px] pt-[21px] px-4 relative shrink-0 w-[402px]" data-name="Status bar - iPhone" data-node-id="7:234">
         <StatusBarIPhone />
       </div>
-      <div className="box-border content-stretch flex gap-5 items-center justify-start px-2.5 py-0 relative shrink-0 w-[402px]" data-name="Header Box" data-node-id="77:119">
-        <div aria-hidden="true" className="absolute border border-[#27c840] border-solid inset-0 pointer-events-none" />
-        <div className="bg-center bg-cover bg-no-repeat cursor-pointer shrink-0 size-20" data-name="20250905DigitalIdentityLogo1-1 2" id="node-I77_119-21_184" style={{ backgroundImage: `url('${logoImg}')` }} onClick={() => setShowMyPage(false)} />
-        <div className="basis-0 flex flex-col font-['Roboto:Regular',_sans-serif] font-normal grow justify-center leading-[0] min-h-px min-w-px relative shrink-0 text-[#13a229] text-[32px] text-center" id="node-I77_119-5_1116" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[40px]">Show Trust</p>
-        </div>
-        <div className="relative shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shrink-0 size-9" data-name="message-question" id="node-I77_119-2_1656">
-          <MessageQuestion />
-        </div>
-      </div>
+      <PageHeader title="Show Trust" onLogoClick={() => setShowMyPage(false)} />
       {/* DID Box */}
       <div className="bg-[#cfffd7] h-[120px] relative shrink-0 w-[400px]" data-name="DID Box" data-node-id="78:151">
         <DidBox />
