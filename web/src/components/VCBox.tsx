@@ -1,18 +1,4 @@
-interface ButtonDarkProps {
-  labelText?: string;
-}
-
-function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
-  return (
-    <div className="content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] size-full" data-name="Style=Filled, State=enabled, Show Icon=False" data-node-id="6:78">
-      <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" data-node-id="6:202">
-        <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[0] relative shrink-0 text-[#381e72] text-[14px] text-center text-nowrap tracking-[0.1px]" data-node-id="6:203" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[20px] whitespace-pre">{labelText}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { ButtonDark } from './IconButton';
 
 interface VCIcon {
   image: string;

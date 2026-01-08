@@ -8,33 +8,13 @@ import VCBox from './components/VCBox'
 import TrustBox from './components/TrustBox'
 import ActivitiesBox from './components/ActivitiesBox'
 import SocialNetworkBox from './components/SocialNetworkBox'
-import IconButton from './components/IconButton'
+import IconButton, { ButtonDark } from './components/IconButton'
 import avatar12Img from './assets/avatar-12.png';
 import avatar10Img from './assets/avatar-10.png';
 import avatar1Img from './assets/avatar-1.png';
 import driversLicenseLogoImg from './assets/drivers-license-logo.png';
 import tokyoUniversityLogoImg from './assets/tokyo-university-logo.png';
 import companyLogoImg from './assets/company-logo.png';
-
-interface ButtonDarkProps {
-  icon?: React.ReactNode | null;
-  labelText?: string;
-  style?: "Filled" | "Outlined" | "Text" | "Elevated" | "Tonal";
-  state?: "enabled" | "hovered" | "focused" | "pressed" | "disabled";
-  showIcon?: "False" | "True";
-}
-
-function ButtonDark({ labelText = "Label" }: ButtonDarkProps) {
-  return (
-    <div className="content-stretch cursor-pointer flex flex-col items-center justify-center overflow-clip relative rounded-[100px] size-full" data-name="Style=Filled, State=enabled, Show Icon=False" data-node-id="6:78">
-      <div className="box-border content-stretch flex gap-2 items-center justify-center px-6 py-2.5 relative shrink-0 w-full" data-name="state-layer" data-node-id="6:202">
-        <div className="flex flex-col font-['Roboto:Medium',_sans-serif] font-medium justify-center leading-[0] relative shrink-0 text-[#381e72] text-[14px] text-center text-nowrap tracking-[0.1px]" data-node-id="6:203" style={{ fontVariationSettings: "'wdth' 100" }}>
-          <p className="leading-[20px] whitespace-pre">{labelText}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function MyPage() {
   const [showVerifyVC, setShowVerifyVC] = useState(false);
